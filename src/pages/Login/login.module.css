@@ -1,0 +1,62 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../../assets/imgs/login-bg.png");
+  background-position: left;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container main {
+  width: 95%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background-color: #fff;
+  padding: 32px;
+  border-radius: 30px;
+
+  display: flex;
+  align-items: center;
+}
+
+.container main img {
+  width: 280px;
+}
+
+.container main form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  text-align: center;
+}
+
+.container main form .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.container main form footer p {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.container main form footer p a {
+  color: var(--blue);
+  transition: all 0.2s ease-in-out;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.container main form footer p a:hover {
+  color: var(--light-blue);
+}
+
+.container main form footer p a:active {
+  color: var(--dark-blue);
+}

@@ -1,9 +1,5 @@
-import { PageLayout } from "./components/PageLayout";
+import { Login } from "./pages/Login";
 
 export function App() {
-  return (
-    <PageLayout>
-      <h1>Hello World</h1>
-    </PageLayout>
-  );
+  return <Login />;
 }

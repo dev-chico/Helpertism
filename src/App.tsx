@@ -1,5 +1,5 @@
-import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 
 export function App() {
-  return <Login />;
+  return <Register />;
 }

@@ -1,0 +1,88 @@
+.defaultButton {
+  border: 1px solid transparent;
+  outline: none;
+  background-color: var(--blue);
+  color: #fff;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.defaultButton:hover {
+  background-color: var(--light-blue);
+}
+
+.defaultButton:active {
+  background-color: var(--dark-blue);
+}
+
+.defaultButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.rounded {
+  border-radius: 30px;
+}
+
+/* BUTTON RED */
+.red {
+  background-color: var(--red);
+}
+
+.red:hover {
+  background-color: var(--light-red);
+}
+
+.red:active {
+  background-color: var(--dark-red);
+}
+
+/* BUTTON GRAY */
+.gray {
+  background-color: var(--gray);
+}
+
+.gray:hover {
+  background-color: var(--light-gray);
+}
+
+.gray:active {
+  background-color: var(--dark-gray);
+}
+
+/* BUTTON ORANGE */
+.orange {
+  background-color: var(--orange);
+}
+
+.orange:hover {
+  background-color: var(--light-orange);
+}
+
+.orange:active {
+  background-color: var(--dark-orange);
+}
+
+/* BUTTON WHITE */
+.white {
+  background-color: #ededed;
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.white:hover {
+  background-color: #fff;
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.white:active {
+  background-color: #cecece;
+  color: var(--blue);
+  border-color: var(--blue);
+}

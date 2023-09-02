@@ -1,3 +1,9 @@
+import { Input } from "./components/Input";
+
 export function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <div>
+      <Input placeholder="teste" />
+    </div>
+  );
 }

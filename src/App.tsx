@@ -1,11 +1,9 @@
-import { Header } from "./components/Header";
-import { Menu } from "./components/Menu";
+import { PageLayout } from "./components/PageLayout";
 
 export function App() {
   return (
-    <div>
-      <Header />
-      <Menu />
-    </div>
+    <PageLayout>
+      <h1>Hello World</h1>
+    </PageLayout>
   );
 }

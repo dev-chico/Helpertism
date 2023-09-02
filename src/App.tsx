@@ -1,9 +1,11 @@
-import { Input } from "./components/Input";
+import { Header } from "./components/Header";
+import { Menu } from "./components/Menu";
 
 export function App() {
   return (
     <div>
-      <Input placeholder="teste" />
+      <Header />
+      <Menu />
     </div>
   );
 }

@@ -1,0 +1,47 @@
+.container {
+  position: relative;
+  width: fit-content;
+}
+
+.menuItem {
+  background-color: #fff;
+  width: 45px;
+  height: 45px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+
+.menuItem > svg {
+  color: var(--gray);
+}
+
+.menuItem:hover {
+  background-color: var(--blue);
+}
+
+.menuItem:hover > svg {
+  color: #fff;
+}
+
+.container:hover .tooltip {
+  display: block;
+}
+
+.tooltip {
+  color: #fff;
+  background-color: var(--blue);
+  width: 110px;
+  padding: 4px 12px;
+  border-radius: 30px;
+  text-align: center;
+  font-weight: 600;
+  position: absolute;
+  top: 12px;
+  left: 56px;
+  display: none;
+  transition: all 0.2s ease-in-out;
+}

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button } from "../../components/Button";
-import { Input } from "../../components/Input";
-import logo from "../../assets/imgs/logo.png";
+import { Button, Input } from "../../../components";
+import { Link } from "react-router-dom";
+import logo from "../../../assets/imgs/logo.png";
 import styles from "./register.module.css";
+import { UnauthenticatedPaths } from "../../../constants/paths";
 
 export function Register() {
   const [email, setEmail] = useState<string>("");
@@ -48,11 +49,12 @@ export function Register() {
             />
           </div>
 
-          <Button onClick={handleLogin}>Entrar</Button>
+          <Button onClick={handleLogin}>Cadastrar</Button>
 
           <footer>
             <p>
-              Não possui uma conta? <a href="#">Crie uma!</a>
+              Já possui uma conta?{" "}
+              <Link to={UnauthenticatedPaths.login}>Entrar!</Link>
             </p>
           </footer>
         </form>

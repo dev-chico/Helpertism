@@ -1,5 +1,10 @@
-import { Register } from "./pages/Register";
+import { BrowserRouter } from "react-router-dom";
+import { Routes } from "./routes";
 
 export function App() {
-  return <Register />;
+  return (
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
+  );
 }

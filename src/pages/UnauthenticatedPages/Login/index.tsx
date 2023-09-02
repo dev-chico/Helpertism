@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Button } from "../../components/Button";
-import { Input } from "../../components/Input";
-import logo from "../../assets/imgs/logo.png";
+import { Button, Input } from "../../../components";
+import { Link } from "react-router-dom";
+import logo from "../../../assets/imgs/logo.png";
 import styles from "./login.module.css";
+import { UnauthenticatedPaths } from "../../../constants/paths";
 
 export function Login() {
   const [email, setEmail] = useState<string>("");
@@ -34,7 +35,8 @@ export function Login() {
 
           <footer>
             <p>
-              Não possui uma conta? <a href="#">Crie uma!</a>
+              Não possui uma conta?{" "}
+              <Link to={UnauthenticatedPaths.register}>Crie uma!</Link>
             </p>
           </footer>
         </form>

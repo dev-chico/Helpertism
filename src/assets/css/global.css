@@ -42,3 +42,20 @@ body {
   font-feature-settings: "cv11", "salt", "ss01", "ss03", "cv01", "cv02", "cv03",
     "cv04", "cv05", "cv06", "cv09", "cv10";
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ccc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-blue);
+}

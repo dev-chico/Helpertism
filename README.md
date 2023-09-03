@@ -1,27 +1,20 @@
-# React + TypeScript + Vite
+# Helpertism 💙🎈
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plataforma para auxiliar no ensino-aprendizagem de crianças autistas.
+<br/><br/><br/>
 
-Currently, two official plugins are available:
+### Techs
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O projeto foi desenvolvido com React, Typescript, CSS Modules e serviços do Firebase (Firestore e Authentication).
 
-## Expanding the ESLint configuration
+<br />
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Instruções para clonar e rodar projeto:
 
-- Configure the top-level `parserOptions` property like this:
+Para clonar o projeto, basta executar `git clone https://github.com/dev-chico/Helpertism.git`
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Após clonado, instale as dependências (dentro da pasta raíz) com o comando: `npm install`
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Para rodar, basta executar: `npm run dev`
+
+E caso queira fazer o build: `npm run build`

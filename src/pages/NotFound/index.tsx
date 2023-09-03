@@ -5,14 +5,12 @@ import styles from "./notFound.module.css";
 export function NotFound() {
   return (
     <div className={styles.container}>
-      <section>
-        <main>
-          <FaExclamationCircle size={80} />
-          <h1>Ops... Página não encontrada! ☹️</h1>
-        </main>
+      <main>
+        <FaExclamationCircle size={80} />
+        <h1>Ops... Página não encontrada! ☹️</h1>
+      </main>
 
-        <Link to="/">Voltar para página inicial</Link>
-      </section>
+      <Link to="/">Voltar para página inicial</Link>
     </div>
   );
 }

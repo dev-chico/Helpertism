@@ -1,6 +1,5 @@
 import { FaExclamationCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
 import styles from "./notFound.module.css";
 
 export function NotFound() {

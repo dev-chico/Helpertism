@@ -1,4 +1,4 @@
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ReactNode } from "react";
 import styles from "./menuItem.module.css";
 
@@ -21,9 +21,9 @@ export function MenuItem({
   return (
     <div className={styles.container}>
       {isLink ? (
-        <a href={path} className={styles.menuItem}>
+        <Link to={path} className={styles.menuItem}>
           {children}
-        </a>
+        </Link>
       ) : (
         <button onClick={onclick} className={styles.menuItem}>
           {children}

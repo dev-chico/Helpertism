@@ -29,6 +29,11 @@ a {
   transition: all 0.2s ease-in-out;
 }
 
+button {
+  outline: none;
+  border: none;
+}
+
 body {
   color: #3c3c3c;
   -webkit-font-smoothing: antialiased;

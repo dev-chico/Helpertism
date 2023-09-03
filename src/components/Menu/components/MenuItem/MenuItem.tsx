@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ReactNode } from "react";
 import styles from "./menuItem.module.css";
 
 interface IMenuItemProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: ReactNode;
   title: string;
   isLink?: boolean;
@@ -18,10 +17,16 @@ export function MenuItem({
   title,
   onclick,
 }: IMenuItemProps) {
+  const { pathname } = useLocation();
+  const isActualPage = pathname === path;
+
   return (
     <div className={styles.container}>
       {isLink ? (
-        <Link to={path} className={styles.menuItem}>
+        <Link
+          to={path}
+          className={`${styles.menuItem} ${isActualPage && styles.actualPage}`}
+        >
           {children}
         </Link>
       ) : (

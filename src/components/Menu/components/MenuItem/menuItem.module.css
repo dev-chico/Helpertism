@@ -27,6 +27,14 @@
   color: #fff;
 }
 
+.menuItem.actualPage {
+  background-color: var(--blue);
+}
+
+.menuItem.actualPage > svg {
+  color: #fff;
+}
+
 .container:hover .tooltip {
   display: block;
 }

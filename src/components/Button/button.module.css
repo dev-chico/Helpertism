@@ -87,3 +87,8 @@
   color: var(--blue);
   border-color: var(--blue);
 }
+
+.defaultButton.small {
+  font-size: 0.7em;
+  height: 30px;
+}

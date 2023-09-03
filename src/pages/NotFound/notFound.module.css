@@ -1,0 +1,52 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  background-image: url("../../assets/imgs/login-bg.png");
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container section {
+  background-color: #fff;
+  padding: 32px 40px;
+  border-radius: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.container section main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.container section main svg {
+  color: #f9c300;
+}
+
+.container section main h1 {
+  font-size: 2.5em;
+}
+
+.container section a {
+  color: var(--blue);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.container section a:hover {
+  color: var(--light-blue);
+}
+
+.container section a:active {
+  color: var(--dark-blue);
+}

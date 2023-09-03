@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import { UnauthenticatedPaths } from "../constants/paths";
+import { PageLoading } from "../components/PageLoading";
 
 const Login = lazy(() =>
   import("../pages/UnauthenticatedPages/Login").then(({ Login }) => ({
@@ -16,7 +17,7 @@ const Register = lazy(() =>
 
 export const UnauthenticatedRoutes: React.FC = () => {
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<PageLoading />}>
       <Routes>
         <Route path={UnauthenticatedPaths.login} element={<Login />} />
         <Route path={UnauthenticatedPaths.register} element={<Register />} />
@@ -24,8 +25,4 @@ export const UnauthenticatedRoutes: React.FC = () => {
       </Routes>
     </Suspense>
   );
-};
-
-const Loading: React.FC = () => {
-  return <div>Carregando</div>;
 };

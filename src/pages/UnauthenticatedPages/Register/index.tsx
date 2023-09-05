@@ -10,6 +10,7 @@ export function Register() {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [age, setAge] = useState<string>("");
 
   function handleLogin() {
     console.log("logou");
@@ -36,6 +37,12 @@ export function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+            />
+            <Input
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              type="number"
+              placeholder="Idade"
             />
             <Input
               value={password}

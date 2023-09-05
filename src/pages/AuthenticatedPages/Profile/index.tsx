@@ -1,8 +1,16 @@
+import { useState } from "react";
 import { Button } from "../../../components";
 import { Info } from "./components/Info";
 import styles from "./profile.module.css";
+import { EditModal } from "./components/EditModal/EditModal";
 
 export function Profile() {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  function handleToggleModal() {
+    setIsModalOpen((state) => !state);
+  }
+
   return (
     <div className={styles.container}>
       <header>
@@ -16,11 +24,13 @@ export function Profile() {
       </main>
 
       <div className={styles.buttonsContainer}>
-        <Button>Editar perfil</Button>
+        <Button onClick={handleToggleModal}>Editar perfil</Button>
         <Button bgColor="red" small>
           Deletar conta
         </Button>
       </div>
+
+      <EditModal handleToggle={handleToggleModal} isOpen={isModalOpen} />
     </div>
   );
 }

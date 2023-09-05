@@ -11,7 +11,6 @@ interface IModalProps {
   onCancel: () => void;
   onConfirm: () => void;
   visible: boolean;
-  isLoading: boolean;
 }
 
 export function Modal({
@@ -22,7 +21,6 @@ export function Modal({
   onCancel,
   onConfirm,
   visible,
-  isLoading,
 }: IModalProps) {
   if (!visible) return null;
 
@@ -35,7 +33,7 @@ export function Modal({
           <div className={styles.modalBody}>{children}</div>
 
           <footer>
-            <Button onClick={onCancel} disabled={isLoading} bgColor="red">
+            <Button onClick={onCancel} bgColor="red">
               {cancelLabel}
             </Button>
             <Button onClick={onConfirm}>{confirmLabel}</Button>

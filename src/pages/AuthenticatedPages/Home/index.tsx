@@ -1,9 +1,11 @@
 import { Button } from "../../../components";
 import { Card } from "../../../components/Card";
+import { DailyActivities } from "./components/DailyActivities";
+import styles from "./home.module.css";
 
 export function Home() {
   return (
-    <div>
+    <div className={styles.container}>
       <h1>home</h1>
       <Card
         title="Jogo"
@@ -12,6 +14,8 @@ export function Home() {
       >
         <Button small>Jogar</Button>
       </Card>
+
+      <DailyActivities />
     </div>
   );
 }

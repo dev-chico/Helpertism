@@ -49,6 +49,12 @@ html {
   scroll-behavior: smooth;
 }
 
+a {
+  text-decoration: none;
+  transition: 0.15s ease-in-out;
+  color: var(--blue);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }

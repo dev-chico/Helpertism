@@ -1,19 +1,30 @@
 import { ReactNode } from "react";
 import styles from "./card.module.css";
 
-import bg1 from "../../assets/imgs/cards/bg-1.png";
-
-interface ICardProps {
+export interface ICardGame {
+  id: number;
   title: string;
   date?: string;
   description?: string;
+  img: string;
+}
+
+interface ICardProps extends ICardGame {
   children: ReactNode;
 }
 
-export function Card({ children, title, date, description }: ICardProps) {
+export function Card({
+  children,
+  title,
+  date,
+  description,
+  img,
+  id,
+}: ICardProps) {
+  console.log("ID: ", id);
   return (
     <div className={styles.container}>
-      <img src={bg1} className={styles.img} />
+      <img src={img} className={styles.img} />
 
       <main>
         <div>

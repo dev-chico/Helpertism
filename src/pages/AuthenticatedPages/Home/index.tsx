@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { Button } from "../../../components";
-import { Card, ICardGame } from "../../../components/Card";
+import { Card, ICard } from "../../../components/Card";
 import { DailyActivities } from "./components/DailyActivities";
 import { HomeSection } from "./components/HomeSection";
 import { gamesMock, lastPlayedGamesMock } from "./mock";
-import styles from "./home.module.css";
-import { NoGamesView } from "./components/NoGamesView/NoGamesView";
 import { Link } from "react-router-dom";
+import styles from "./home.module.css";
+import { NoDataView } from "../../../components/NoDataView/NoDataView";
 
 export function Home() {
-  const [lastPlayedGames, setLastPlayedGames] = useState<ICardGame[]>([]);
-  const [games, setGames] = useState<ICardGame[]>([]);
+  const [lastPlayedGames, setLastPlayedGames] = useState<ICard[]>([]);
+  const [games, setGames] = useState<ICard[]>([]);
 
   useEffect(() => {
     setLastPlayedGames(lastPlayedGamesMock);
@@ -31,7 +31,7 @@ export function Home() {
         <section className={styles.gamesList}>
           {lastPlayedGames.length > 0 && (
             <HomeSection title="Últimos jogos">
-              {lastPlayedGames.map((game: ICardGame) => (
+              {lastPlayedGames.map((game: ICard) => (
                 <Card
                   key={game.id}
                   id={game.id}
@@ -48,7 +48,7 @@ export function Home() {
 
           {games.length > 0 && (
             <HomeSection title="Todos os jogos">
-              {games.map((game: ICardGame) => (
+              {games.map((game: ICard) => (
                 <Card
                   key={game.id}
                   id={game.id}
@@ -65,7 +65,7 @@ export function Home() {
         </section>
 
         {lastPlayedGames.length === 0 && games.length === 0 ? (
-          <NoGamesView />
+          <NoDataView text="Crie seu primeiro jogo" />
         ) : null}
       </main>
 

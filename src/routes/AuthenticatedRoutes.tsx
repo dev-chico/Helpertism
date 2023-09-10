@@ -15,6 +15,12 @@ const Profile = lazy(() =>
   }))
 );
 
+const Posts = lazy(() =>
+  import("../pages/AuthenticatedPages/Posts").then(({ Posts }) => ({
+    default: Posts,
+  }))
+);
+
 const NotFound = lazy(() =>
   import("../pages/NotFound").then(({ NotFound }) => ({
     default: NotFound,
@@ -28,6 +34,7 @@ export const AuthenticatedRoutes: React.FC = () => {
         {/* Home */}
         <Route path={AuthenticatedPaths.home} element={<Home />} />
         <Route path={AuthenticatedPaths.profile} element={<Profile />} />
+        <Route path={AuthenticatedPaths.posts} element={<Posts />} />
         {/* Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

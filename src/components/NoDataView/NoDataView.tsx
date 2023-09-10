@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
-import bear from "../../../../../assets/imgs/bear.jpg";
-import styles from "./noGamesView.module.css";
+import bear from "../../assets/imgs/bear.jpg";
+import styles from "./noDataView.module.css";
 
-export function NoGamesView() {
+interface INoDataViewProps {
+  text: string;
+}
+
+export function NoDataView({ text }: INoDataViewProps) {
   return (
     <div className={styles.container}>
       <div className={styles.noData}>
         <Link to="/" className={styles.createGameLink}>
-          Crie seu primeiro jogo
+          {text}
         </Link>
         <div className={styles.icons}>😁💙</div>
       </div>

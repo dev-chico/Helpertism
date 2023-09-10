@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .container .noData {
@@ -36,15 +37,13 @@
 .container .firstBearImg {
   width: 100px;
   position: absolute;
-  right: 450px;
-  bottom: -2px;
+  left: 88%;
+  bottom: 0px;
 }
 
 .container .secondBearImg {
   width: 100px;
   position: absolute;
-  top: 20px;
-  left: 5px;
-  transform: rotate(90deg);
-  z-index: 0;
+  right: 88%;
+  bottom: 0px;
 }

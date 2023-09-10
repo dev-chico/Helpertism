@@ -1,15 +1,16 @@
 import { ReactNode } from "react";
 import styles from "./card.module.css";
 
-export interface ICardGame {
+export interface ICard {
   id: number;
+  img: string;
   title: string;
   date?: string;
   description?: string;
-  img: string;
+  author_id?: string;
 }
 
-interface ICardProps extends ICardGame {
+interface ICardProps extends ICard {
   children: ReactNode;
 }
 

@@ -3,12 +3,18 @@ import { Button } from "../../../components";
 import { Info } from "./components/Info";
 import styles from "./profile.module.css";
 import { EditModal } from "./components/EditModal/EditModal";
+import { DeleteAccountModal } from "./components/DeleteAccountModal/DeleteAccountModal";
 
 export function Profile() {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalEditOpen, setIsModalEditOpen] = useState<boolean>(false);
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState<boolean>(false);
 
-  function handleToggleModal() {
-    setIsModalOpen((state) => !state);
+  function handleToggleModalEdit() {
+    setIsModalEditOpen((state) => !state);
+  }
+
+  function handleToggleModalDelete() {
+    setIsModalDeleteOpen((state) => !state);
   }
 
   return (
@@ -24,13 +30,20 @@ export function Profile() {
       </main>
 
       <div className={styles.buttonsContainer}>
-        <Button onClick={handleToggleModal}>Editar perfil</Button>
-        <Button bgColor="red" small>
+        <Button onClick={handleToggleModalEdit}>Editar perfil</Button>
+        <Button bgColor="red" small onClick={handleToggleModalDelete}>
           Deletar conta
         </Button>
       </div>
 
-      <EditModal handleToggle={handleToggleModal} isOpen={isModalOpen} />
+      <EditModal
+        handleToggle={handleToggleModalEdit}
+        isOpen={isModalEditOpen}
+      />
+      <DeleteAccountModal
+        handleToggle={handleToggleModalDelete}
+        isOpen={isModalDeleteOpen}
+      />
     </div>
   );
 }

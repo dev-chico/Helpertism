@@ -33,9 +33,9 @@ export function Modal({
           <div className={styles.modalBody}>{children}</div>
 
           <footer>
-            <Button onClick={onCancel} bgColor="red">
+            <button onClick={onCancel} className={styles.btnCancel}>
               {cancelLabel}
-            </Button>
+            </button>
             <Button onClick={onConfirm}>{confirmLabel}</Button>
           </footer>
         </div>

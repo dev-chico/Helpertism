@@ -1,5 +1,3 @@
-import styles from "./info.module.css";
-
 interface IInfoProps {
   title: string;
   content: string;
@@ -7,7 +5,7 @@ interface IInfoProps {
 
 export function Info({ content, title }: IInfoProps) {
   return (
-    <div className={styles.container}>
+    <div>
       <h3>{title}</h3>
       <span>{content}</span>
     </div>

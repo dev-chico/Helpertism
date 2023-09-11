@@ -20,7 +20,7 @@ export function Menu() {
           <FaCalendarDay size={20} />
         </MenuItem>
 
-        <MenuItem title="Posts" path={AuthenticatedPaths.posts}>
+        <MenuItem title="Posts" path={AuthenticatedPaths.posts.home}>
           <FaEdit size={20} />
         </MenuItem>
 

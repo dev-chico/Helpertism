@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { Button } from "../../../components";
+import { Button } from "../../../../components";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { postsMock } from "./mock";
-import { Card, ICard } from "../../../components/Card";
-import { NoDataView } from "../../../components/NoDataView/NoDataView";
+import { Card, ICard } from "../../../../components/Card";
+import { NoDataView } from "../../../../components/NoDataView/NoDataView";
+import { AuthenticatedPaths } from "../../../../constants/paths";
 import styles from "./posts.module.css";
 
 export function Posts() {
@@ -19,7 +20,7 @@ export function Posts() {
       {postsList.length > 0 && (
         <header className={styles.header}>
           <h1>Últimos posts</h1>
-          <Link to="/">
+          <Link to={AuthenticatedPaths.posts.create}>
             <Button small bgColor="orange">
               <FaPlus /> Novo post
             </Button>

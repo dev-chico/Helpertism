@@ -16,9 +16,17 @@ const Profile = lazy(() =>
 );
 
 const Posts = lazy(() =>
-  import("../pages/AuthenticatedPages/Posts").then(({ Posts }) => ({
+  import("../pages/AuthenticatedPages/Posts/Home").then(({ Posts }) => ({
     default: Posts,
   }))
+);
+
+const CreatePost = lazy(() =>
+  import("../pages/AuthenticatedPages/Posts/CreatePost").then(
+    ({ CreatePost }) => ({
+      default: CreatePost,
+    })
+  )
 );
 
 const NotFound = lazy(() =>
@@ -34,7 +42,11 @@ export const AuthenticatedRoutes: React.FC = () => {
         {/* Home */}
         <Route path={AuthenticatedPaths.home} element={<Home />} />
         <Route path={AuthenticatedPaths.profile} element={<Profile />} />
-        <Route path={AuthenticatedPaths.posts} element={<Posts />} />
+        <Route path={AuthenticatedPaths.posts.home} element={<Posts />} />
+        <Route
+          path={AuthenticatedPaths.posts.create}
+          element={<CreatePost />}
+        />
         {/* Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

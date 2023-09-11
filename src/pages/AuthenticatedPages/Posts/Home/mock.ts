@@ -1,9 +1,8 @@
-import bg1 from "../../../assets/imgs/cards/bg-1.png";
-import bg2 from "../../../assets/imgs/cards/bg-2.png";
-import bg3 from "../../../assets/imgs/cards/bg-3.png";
-import bg4 from "../../../assets/imgs/cards/bg-4.png";
-import bg5 from "../../../assets/imgs/cards/bg-5.png";
-
+import bg1 from "../../../../assets/imgs/cards/bg-1.png";
+import bg2 from "../../../../assets/imgs/cards/bg-2.png";
+import bg3 from "../../../../assets/imgs/cards/bg-3.png";
+import bg4 from "../../../../assets/imgs/cards/bg-4.png";
+import bg5 from "../../../../assets/imgs/cards/bg-5.png";
 
 export const postsMock = [
   {

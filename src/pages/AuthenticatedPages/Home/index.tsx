@@ -7,6 +7,7 @@ import { gamesMock, lastPlayedGamesMock } from "./mock";
 import { Link } from "react-router-dom";
 import styles from "./home.module.css";
 import { NoDataView } from "../../../components/NoDataView/NoDataView";
+import { AuthenticatedPaths } from "../../../constants/paths";
 
 export function Home() {
   const [lastPlayedGames, setLastPlayedGames] = useState<ICard[]>([]);
@@ -21,7 +22,7 @@ export function Home() {
     <div className={styles.container}>
       <main className={styles.content}>
         {(lastPlayedGames.length > 0 || games.length > 0) && (
-          <Link to="/">
+          <Link to={AuthenticatedPaths.games.create}>
             <Button small bgColor="orange">
               Criar um novo jogo
             </Button>

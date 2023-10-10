@@ -1,0 +1,129 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+
+  width: 100%;
+  height: 100%;
+}
+
+.container header {
+  margin-top: 24px;
+}
+
+.container .uploadImageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 16px;
+}
+
+.container .uploadImageContainer img {
+  width: 600px;
+}
+
+.container form {
+  margin-top: 24px;
+  width: 100%;
+  max-width: 600px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.container .divider {
+  width: 100%;
+  height: 2px;
+  background-color: #ddd;
+  margin: 32px 0px;
+}
+
+.container > main {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  padding-bottom: 10em;
+}
+
+.container .rounds {
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+  width: 95%;
+  max-width: 600px;
+}
+
+.container .rounds .round {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.container .rounds .round > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.options .opt {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.options .opt .optRadio {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.addQuestion {
+  background-color: var(--blue);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.2s ease-in-out;
+}
+
+.addQuestion:hover {
+  opacity: 0.8;
+}
+
+.addQuestion:active {
+  opacity: 1;
+}
+
+.addQuestion:disabled {
+  cursor: not-allowed;
+  background-color: var(--light-gray);
+}
+
+.container .footer {
+  width: 100%;
+  background-color: #f9f9f9;
+  position: fixed;
+  bottom: 0;
+
+  padding: 16px;
+  padding-right: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 32px;
+
+  box-shadow: inset 0px 1px 4px 0px rgba(0, 0, 0, 0.15);
+}

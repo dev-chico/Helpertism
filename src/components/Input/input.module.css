@@ -17,3 +17,9 @@
   letter-spacing: 1px;
   font-weight: 600;
 }
+
+.input.small {
+  height: 35px;
+  border-radius: 8px;
+  padding: 4px 8px;
+}

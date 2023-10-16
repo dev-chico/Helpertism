@@ -39,7 +39,9 @@ export function Posts() {
               date={post.date}
               description={post.description}
             >
-              <Button small>Ler</Button>
+              <Link to={`${AuthenticatedPaths.posts.read}/${post.id}`}>
+                <Button small>Ler</Button>
+              </Link>
             </Card>
           ))}
       </main>

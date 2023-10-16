@@ -1,17 +1,17 @@
 export const AuthenticatedPaths = {
-  home: "/",
+  home: "/jogos",
   activities: "/atividades",
   profile: "/perfil",
   games: {
     create: "/jogos/criar",
-    edit: "/jogos/editar/:id",
-    play: "/jogos/:id",
+    edit: "/jogos/editar",
+    play: "/jogos",
   },
   posts: {
     home: "/posts",
     create: "/posts/criar",
-    edit: "/posts/editar/:id",
-    read: "/posts/:id",
+    edit: "/posts/editar",
+    read: "/posts",
   },
 };
 

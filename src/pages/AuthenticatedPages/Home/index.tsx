@@ -5,9 +5,9 @@ import { DailyActivities } from "./components/DailyActivities";
 import { HomeSection } from "./components/HomeSection";
 import { gamesMock, lastPlayedGamesMock } from "./mock";
 import { Link } from "react-router-dom";
-import styles from "./home.module.css";
 import { NoDataView } from "../../../components/NoDataView/NoDataView";
 import { AuthenticatedPaths } from "../../../constants/paths";
+import styles from "./home.module.css";
 
 export function Home() {
   const [lastPlayedGames, setLastPlayedGames] = useState<ICard[]>([]);
@@ -41,7 +41,7 @@ export function Home() {
                   date={game.date}
                   description={game.description}
                 >
-                  <Link to={AuthenticatedPaths.games.play}>
+                  <Link to={`${AuthenticatedPaths.games.play}/${game.id}`}>
                     <Button small>Jogar</Button>
                   </Link>
                 </Card>

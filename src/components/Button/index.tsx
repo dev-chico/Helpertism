@@ -6,6 +6,7 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   bgColor?: "blue" | "red" | "gray" | "white" | "orange";
   rounded?: boolean;
   small?: boolean;
+  className?: string
 }
 
 export function Button({
@@ -13,6 +14,7 @@ export function Button({
   rounded = true,
   bgColor = "blue",
   small = false,
+  className,
   ...props
 }: IButtonProps) {
   return (
@@ -20,7 +22,7 @@ export function Button({
       {...props}
       className={`${styles.defaultButton} ${styles[bgColor]} ${
         rounded && styles.rounded
-      } ${small && styles.small}`}
+      } ${small && styles.small} ${className}`}
     >
       {children}
     </button>

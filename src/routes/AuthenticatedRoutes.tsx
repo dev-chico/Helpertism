@@ -37,6 +37,14 @@ const CreateGame = lazy(() =>
   )
 );
 
+const Play = lazy(() =>
+  import("../pages/AuthenticatedPages/Games/Play").then(
+    ({ Play }) => ({
+      default: Play,
+    })
+  )
+);
+
 const NotFound = lazy(() =>
   import("../pages/NotFound").then(({ NotFound }) => ({
     default: NotFound,
@@ -54,6 +62,10 @@ export const AuthenticatedRoutes: React.FC = () => {
         <Route
           path={AuthenticatedPaths.games.create}
           element={<CreateGame />}
+        />
+        <Route
+          path={AuthenticatedPaths.games.play}
+          element={<Play />}
         />
         <Route
           path={AuthenticatedPaths.posts.create}

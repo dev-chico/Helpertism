@@ -49,6 +49,12 @@ const Play = lazy(() =>
   }))
 );
 
+const Tasks = lazy(() =>
+  import("../pages/AuthenticatedPages/Tasks").then(({ Tasks }) => ({
+    default: Tasks,
+  }))
+);
+
 const NotFound = lazy(() =>
   import("../pages/NotFound").then(({ NotFound }) => ({
     default: NotFound,
@@ -79,6 +85,7 @@ export const AuthenticatedRoutes: React.FC = () => {
           path={`${AuthenticatedPaths.posts.read}/:id`}
           element={<ReadPost />}
         />
+        <Route path={`${AuthenticatedPaths.activities}`} element={<Tasks />} />
         {/* Not Found */}
         <Route path="*" element={<NotFound />} />
       </Routes>

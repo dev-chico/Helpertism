@@ -60,7 +60,9 @@ export function Home() {
                   date={game.date}
                   description={game.description}
                 >
-                  <Button small>Jogar</Button>
+                  <Link to={`${AuthenticatedPaths.games.play}/${game.id}`}>
+                    <Button small>Jogar</Button>
+                  </Link>
                 </Card>
               ))}
             </HomeSection>

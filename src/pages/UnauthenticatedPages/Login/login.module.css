@@ -60,3 +60,7 @@
 .container main form footer p a:active {
   color: var(--dark-blue);
 }
+
+.loginLoader {
+  align-self: center;
+}

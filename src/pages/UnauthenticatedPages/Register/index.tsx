@@ -5,9 +5,10 @@ import { UnauthenticatedPaths } from "../../../constants/paths";
 import { useAuth } from "../../../contexts/AuthContext";
 import logo from "../../../assets/imgs/logo.png";
 import styles from "./register.module.css";
+import { Loader } from "../../../components/Loader";
 
 export function Register() {
-  const { handleSignUp } = useAuth();
+  const { handleSignUp, loading } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -90,9 +91,15 @@ export function Register() {
             </div>
           </div>
 
-          <Button type="submit" disabled={disabled}>
-            Cadastrar
-          </Button>
+          {loading ? (
+            <div className={styles.registerLoader}>
+              <Loader small />
+            </div>
+          ) : (
+            <Button type="submit" disabled={disabled}>
+              Cadastrar
+            </Button>
+          )}
 
           <footer>
             <p>

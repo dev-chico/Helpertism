@@ -5,9 +5,10 @@ import { UnauthenticatedPaths } from "../../../constants/paths";
 import { useAuth } from "../../../contexts/AuthContext";
 import logo from "../../../assets/imgs/logo.png";
 import styles from "./login.module.css";
+import { Loader } from "../../../components/Loader";
 
 export function Login() {
-  const { handleLogin } = useAuth();
+  const { handleLogin, loading } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -41,7 +42,13 @@ export function Login() {
             />
           </div>
 
-          <Button disabled={disabled}>Entrar</Button>
+          {loading ? (
+            <div className={styles.loginLoader}>
+              <Loader small />
+            </div>
+          ) : (
+            <Button disabled={disabled}>Entrar</Button>
+          )}
 
           <footer>
             <p>

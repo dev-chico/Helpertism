@@ -68,6 +68,8 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   }, []);
 
   async function handleLogin(email: string, password: string) {
+    setLoading(true);
+
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -102,6 +104,8 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     } catch (error: any) {
       console.error("Erro ao fazer login:", error.message);
       alert("E-mail ou senha não conferem!");
+    } finally {
+      setLoading(false);
     }
   }
 

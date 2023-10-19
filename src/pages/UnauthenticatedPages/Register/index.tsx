@@ -1,32 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import { Button, Input } from "../../../components";
 import { Link } from "react-router-dom";
+import { UnauthenticatedPaths } from "../../../constants/paths";
+import { useAuth } from "../../../contexts/AuthContext";
 import logo from "../../../assets/imgs/logo.png";
 import styles from "./register.module.css";
-import { UnauthenticatedPaths } from "../../../constants/paths";
 
 export function Register() {
+  const { handleSignUp } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [age, setAge] = useState<string>("");
+  const [differentPasswords, setDifferentPasswords] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(true);
+  const [shortPassword, setShortPassword] = useState<boolean>(false);
 
-  function handleLogin() {
-    console.log("logou");
+  function handleRegister(event: FormEvent) {
+    event.preventDefault();
+    handleSignUp(email, password, name, Number(age));
   }
 
   useEffect(() => {
-    if (confirmPassword !== password) {
-      console.log("Senhas diferentes");
+    setDisabled(true);
+
+    if (password.length && confirmPassword.length) {
+      if (confirmPassword !== password) {
+        setDifferentPasswords(true);
+      } else {
+        setDifferentPasswords(false);
+      }
     }
-  }, [confirmPassword]);
+
+    if (confirmPassword === password && password.length >= 6) {
+      setDisabled(false);
+    }
+
+    if (password.length < 6 && password.length > 0) {
+      setShortPassword(true);
+    } else {
+      setShortPassword(false);
+    }
+  }, [confirmPassword, password]);
 
   return (
     <div className={styles.container}>
       <main>
         <img src={logo} alt="Logo escrito Helpertism" />
-        <form>
+        <form onSubmit={handleRegister}>
           <div className={styles.inputs}>
             <Input
               value={name}
@@ -44,19 +66,33 @@ export function Register() {
               type="number"
               placeholder="Idade"
             />
-            <Input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Senha"
-            />
-            <Input
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Confirme sua senha"
-            />
+            <div className={styles.confirmPassword}>
+              <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Senha"
+                type="password"
+              />
+
+              {shortPassword && (
+                <span>Senha deve ter pelo menos 6 caracteres!</span>
+              )}
+            </div>
+            <div className={styles.confirmPassword}>
+              <Input
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirme sua senha"
+                type="password"
+              />
+
+              {differentPasswords && <span>Senhas não conferem!</span>}
+            </div>
           </div>
 
-          <Button onClick={handleLogin}>Cadastrar</Button>
+          <Button type="submit" disabled={disabled}>
+            Cadastrar
+          </Button>
 
           <footer>
             <p>

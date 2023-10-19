@@ -2,11 +2,17 @@ import { FaGamepad, FaCalendarDay, FaEdit } from "react-icons/fa";
 import { FaArrowRightFromBracket, FaUser } from "react-icons/fa6";
 import { AuthenticatedPaths } from "../../constants/paths";
 import { MenuItem } from "./components/MenuItem/MenuItem";
+import { useAuth } from "../../contexts/AuthContext";
 import styles from "./menu.module.css";
+import { useNavigate } from "react-router-dom";
 
 export function Menu() {
-  function logout() {
-    console.log("logout");
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/");
   }
 
   return (
@@ -29,7 +35,7 @@ export function Menu() {
         </MenuItem>
       </section>
 
-      <MenuItem title="Sair" isLink={false} onclick={logout}>
+      <MenuItem title="Sair" isLink={false} onclick={handleLogout}>
         <FaArrowRightFromBracket size={20} />
       </MenuItem>
     </aside>

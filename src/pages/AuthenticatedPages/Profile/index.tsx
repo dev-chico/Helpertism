@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button } from "../../../components";
 import { Info } from "./components/Info";
-import styles from "./profile.module.css";
 import { EditModal } from "./components/EditModal/EditModal";
 import { DeleteAccountModal } from "./components/DeleteAccountModal/DeleteAccountModal";
+import { useAuth } from "../../../contexts/AuthContext";
+import styles from "./profile.module.css";
 
 export function Profile() {
+  const { user } = useAuth();
   const [isModalEditOpen, setIsModalEditOpen] = useState<boolean>(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState<boolean>(false);
 
@@ -24,9 +26,9 @@ export function Profile() {
       </header>
 
       <main>
-        <Info title="Nome" content="Luis Antonio de Souza Silva" />
-        <Info title="Email" content="dev.luis2003@gmail.com" />
-        <Info title="Idade" content="20 anos" />
+        <Info title="Nome" content={user?.name} />
+        <Info title="Email" content={user?.email} />
+        <Info title="Idade" content={user?.age} />
       </main>
 
       <div className={styles.buttonsContainer}>

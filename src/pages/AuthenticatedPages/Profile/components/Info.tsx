@@ -1,6 +1,6 @@
 interface IInfoProps {
   title: string;
-  content: string;
+  content: string | number | undefined;
 }
 
 export function Info({ content, title }: IInfoProps) {

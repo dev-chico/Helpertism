@@ -1,23 +1,32 @@
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Button, Input } from "../../../components";
 import { Link } from "react-router-dom";
+import { UnauthenticatedPaths } from "../../../constants/paths";
+import { useAuth } from "../../../contexts/AuthContext";
 import logo from "../../../assets/imgs/logo.png";
 import styles from "./login.module.css";
-import { UnauthenticatedPaths } from "../../../constants/paths";
 
 export function Login() {
+  const { handleLogin } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [disabled, setDisabled] = useState<boolean>(true);
 
-  function handleLogin() {
-    console.log("logou");
+  useEffect(() => {
+    setDisabled(true);
+    email.length && password.length ? setDisabled(false) : setDisabled(true);
+  }, [email, password]);
+
+  function login(e: FormEvent) {
+    e.preventDefault();
+    handleLogin(email, password);
   }
 
   return (
     <div className={styles.container}>
       <main>
         <img src={logo} alt="Logo escrito Helpertism" />
-        <form>
+        <form onSubmit={login}>
           <div className={styles.inputs}>
             <Input
               value={email}
@@ -28,10 +37,11 @@ export function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Senha"
+              type="password"
             />
           </div>
 
-          <Button onClick={handleLogin}>Entrar</Button>
+          <Button disabled={disabled}>Entrar</Button>
 
           <footer>
             <p>

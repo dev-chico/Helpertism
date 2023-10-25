@@ -1,22 +1,42 @@
 import { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import { daysOfWeek } from "../../../constants/daysOfWeek";
+import {
+  collection,
+  doc,
+  getDocs,
+  getFirestore,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { firebaseApp } from "../../../services/firebase";
+import { useAuth } from "../../../contexts/AuthContext";
+import { PageLoading } from "../../../components/PageLoading";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./tasks.module.css";
 
+interface ITask {
+  uid?: string;
+  description: string;
+  date: string;
+  checked: boolean;
+  userId: string | undefined;
+}
+
 export const Tasks = () => {
+  const db = getFirestore(firebaseApp);
+  const tasksCollection = collection(db, "tasks");
+  const { user } = useAuth();
+
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [numberOfDays, setNumberOfDays] = useState(new Date().getMonth());
-  const [tasksList, setTasksList] = useState([
-    {
-      id: 1,
-      text: "Estudar React",
-      date: "Tue Oct 20 2023 00:00:00 GMT-0300 (Horário Padrão de Brasília)",
-      checked: true,
-    },
-  ]);
+  const [tasksList, setTasksList] = useState<ITask[]>([]);
   const [newTaskTexts, setNewTaskTexts] = useState(
     Array(numberOfDays).fill("")
   );
+  const [loadingPage, setLoadingPage] = useState<boolean>(true);
 
   useEffect(() => {
     const lastDayOfMonth = new Date(
@@ -28,34 +48,95 @@ export const Tasks = () => {
     setNumberOfDays(lastDayOfMonth.getDate());
   }, [selectedMonth]);
 
-  function handleChangeTasksList(id: number | string) {
-    const updatedTasks = tasksList.map((task) =>
-      task.id === id ? { ...task, checked: !task.checked } : task
-    );
-    setTasksList(updatedTasks);
+  useEffect(() => {
+    setLoadingPage(true);
+
+    async function loadTasks() {
+      if (user) {
+        try {
+          const q = query(
+            collection(db, "tasks"),
+            where("userId", "==", user.uid)
+          );
+          const querySnapshot = await getDocs(q);
+
+          const tasksData: ITask[] = [];
+          querySnapshot.forEach((doc) => {
+            const newTask: ITask = {
+              checked: doc.data().checked,
+              date: doc.data().date,
+              description: doc.data().description,
+              uid: doc.data().uid,
+              userId: doc.data().userId,
+            };
+
+            tasksData.push(newTask);
+          });
+
+          setTasksList(tasksData);
+        } catch (error) {
+          console.error("Erro ao buscar tarefas:", error);
+        } finally {
+          setLoadingPage(false);
+        }
+      }
+    }
+
+    loadTasks();
+  }, []);
+
+  async function handleChangeTasksList(id: number | string) {
+    const taskToUpdate = tasksList.find((task) => task.uid === id);
+
+    if (!taskToUpdate) {
+      return;
+    }
+
+    const updatedTask = { ...taskToUpdate, checked: !taskToUpdate.checked };
+
+    try {
+      await updateDoc(doc(db, "tasks", taskToUpdate.uid!), updatedTask);
+
+      const updatedTasks = tasksList.map((task) =>
+        task.uid === id ? updatedTask : task
+      );
+
+      setTasksList(updatedTasks);
+    } catch (error) {
+      console.error("Erro ao atualizar a tarefa:", error);
+    }
   }
 
-  function handleAddTask(date: Date, day: number) {
+  async function handleAddTask(date: Date, day: number) {
+    const taskUID = uuidv4();
+    const newTask: ITask = {
+      uid: taskUID,
+      description: newTaskTexts[day - 1],
+      date: `${date}`,
+      checked: false,
+      userId: user?.uid,
+    };
+
+    try {
+      await setDoc(doc(tasksCollection, taskUID), newTask);
+
+      console.log("Tarefa cadastrada com sucesso!");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("Erro ao cadastrar tarefa:", error.message);
+    }
+
     setNewTaskTexts((prevTaskTexts) => {
-      const currentTaskText = prevTaskTexts[day - 1];
-
-      if (currentTaskText.trim() === "") {
-        return prevTaskTexts;
-      }
-
-      const newTask = {
-        id: tasksList.length + 1,
-        text: currentTaskText,
-        date: `${date}`,
-        checked: false,
-      };
-
       setTasksList((state) => [...state, newTask]);
 
       const updatedTaskTexts = [...prevTaskTexts];
       updatedTaskTexts[day - 1] = "";
       return updatedTaskTexts;
     });
+  }
+
+  if (loadingPage) {
+    return <PageLoading />;
   }
 
   return (
@@ -105,15 +186,15 @@ export const Tasks = () => {
                         taskDate.getMonth() === date.getMonth()
                       ) {
                         return (
-                          <li key={task.id}>
+                          <li key={task.uid}>
                             <input
                               type="checkbox"
-                              onChange={() => handleChangeTasksList(task.id)}
+                              onChange={() => handleChangeTasksList(task.uid!)}
                               checked={task.checked}
-                              id={`check-task-${task.id}`}
+                              id={`check-task-${task.uid}`}
                             />
-                            <label htmlFor={`check-task-${task.id}`}>
-                              {task.text}
+                            <label htmlFor={`check-task-${task.uid}`}>
+                              {task.description}
                             </label>
                           </li>
                         );

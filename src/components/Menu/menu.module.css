@@ -16,3 +16,8 @@
   flex-direction: column;
   gap: 32px;
 }
+
+.btnLogout {
+  position: fixed;
+  bottom: 24px;
+}

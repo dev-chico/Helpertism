@@ -35,9 +35,11 @@ export function Menu() {
         </MenuItem>
       </section>
 
-      <MenuItem title="Sair" isLink={false} onclick={handleLogout}>
-        <FaArrowRightFromBracket size={20} />
-      </MenuItem>
+      <div className={styles.btnLogout}>
+        <MenuItem title="Sair" isLink={false} onclick={handleLogout}>
+          <FaArrowRightFromBracket size={20} />
+        </MenuItem>
+      </div>
     </aside>
   );
 }

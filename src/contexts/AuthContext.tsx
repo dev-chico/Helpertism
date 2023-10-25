@@ -32,6 +32,7 @@ interface IAuthContextData {
   ) => void;
   handleLogin: (email: string, password: string) => void;
   logout: () => void;
+  setUser: (user: IUserData | null) => void
 }
 
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
@@ -40,7 +41,7 @@ interface IAuthProvider {
   children: ReactNode;
 }
 
-interface IUserData {
+export interface IUserData {
   uid: string;
   email: string;
   name: string;
@@ -179,6 +180,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
         handleLogin,
         handleSignUp,
         logout,
+        setUser
       }}
     >
       {children}

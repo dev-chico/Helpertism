@@ -11,6 +11,7 @@ interface IModalProps {
   onCancel: () => void;
   onConfirm: () => void;
   visible: boolean;
+  disableBtnConfirm?: boolean;
 }
 
 export function Modal({
@@ -21,6 +22,7 @@ export function Modal({
   onCancel,
   onConfirm,
   visible,
+  disableBtnConfirm = false,
 }: IModalProps) {
   if (!visible) return null;
 
@@ -36,7 +38,9 @@ export function Modal({
             <button onClick={onCancel} className={styles.btnCancel}>
               {cancelLabel}
             </button>
-            <Button onClick={onConfirm}>{confirmLabel}</Button>
+            <Button onClick={onConfirm} disabled={disableBtnConfirm}>
+              {confirmLabel}
+            </Button>
           </footer>
         </div>
       </div>

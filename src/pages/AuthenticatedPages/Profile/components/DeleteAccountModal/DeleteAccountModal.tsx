@@ -1,4 +1,7 @@
 import { Modal } from "../../../../../components";
+import { useAuth } from "../../../../../contexts/AuthContext";
+import { deleteDoc, doc, getFirestore } from "firebase/firestore";
+import { firebaseApp } from "../../../../../services/firebase";
 import styles from "./deleteAccountModal.module.css";
 
 interface IDeleteAccountModalProps {
@@ -10,8 +13,21 @@ export function DeleteAccountModal({
   handleToggle,
   isOpen,
 }: IDeleteAccountModalProps) {
-  function handleDeleteModal() {
-    console.log("Deletar");
+  const { user, setUser } = useAuth();
+  const db = getFirestore(firebaseApp);
+  const userRef = doc(db, "users", user!.uid!);
+
+  async function handleDelete() {
+    try {
+      await deleteDoc(userRef);
+
+      setUser(null);
+      localStorage.removeItem("helpertism-user");
+
+      handleToggle();
+    } catch (error) {
+      console.error("Erro ao excluir perfil:", error);
+    }
   }
 
   return (
@@ -19,7 +35,7 @@ export function DeleteAccountModal({
       cancelLabel="Cancelar"
       confirmLabel="Deletar"
       onCancel={handleToggle}
-      onConfirm={handleDeleteModal}
+      onConfirm={handleDelete}
       title="Deletar conta"
       visible={isOpen}
     >

@@ -2,12 +2,13 @@ import { ReactNode } from "react";
 import styles from "./card.module.css";
 
 export interface ICard {
-  id: number;
-  img: string;
+  uid: string;
+  img?: string;
   title: string;
-  date?: string;
+  text?: string;
+  date: string;
   description?: string;
-  author_id?: string;
+  userId?: string;
 }
 
 interface ICardProps extends ICard {
@@ -20,9 +21,9 @@ export function Card({
   date,
   description,
   img,
-  id,
+  uid,
 }: ICardProps) {
-  console.log("ID: ", id);
+  console.log("ID: ", uid);
   return (
     <div className={styles.container}>
       <img src={img} className={styles.img} />
@@ -30,7 +31,11 @@ export function Card({
       <main>
         <div>
           <h3>{title}</h3>
-          {date && <span className={styles.date}>{date}</span>}
+          {date && (
+            <span className={styles.date}>
+              {new Date(date).toLocaleDateString()}
+            </span>
+          )}
         </div>
         {description && <p className={styles.description}>{description}</p>}
 

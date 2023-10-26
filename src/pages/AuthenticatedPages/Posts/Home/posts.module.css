@@ -33,3 +33,7 @@
   gap: 24px;
   padding-bottom: 24px;
 }
+
+.btnAct {
+  background-color: transparent;
+}

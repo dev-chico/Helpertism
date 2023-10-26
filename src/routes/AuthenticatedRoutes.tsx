@@ -82,6 +82,10 @@ export const AuthenticatedRoutes: React.FC = () => {
           element={<CreatePost />}
         />
         <Route
+          path={`${AuthenticatedPaths.posts.edit}/:id`}
+          element={<CreatePost />}
+        />
+        <Route
           path={`${AuthenticatedPaths.posts.read}/:id`}
           element={<ReadPost />}
         />

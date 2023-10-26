@@ -3,22 +3,60 @@ import { Button } from "../../../../components";
 import { FormGroup } from "../../../../components/FormGroup";
 import { FooterCreate } from "../../../../components/FooterCreate";
 import { AuthenticatedPaths } from "../../../../constants/paths";
-import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { firebaseApp } from "../../../../services/firebase";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { PageLoading } from "../../../../components/PageLoading";
 import defaultImage from "../../../../assets/imgs/defaultImg.png";
 import styles from "./createPost.module.css";
-import { useNavigate } from "react-router-dom";
 
 export function CreatePost() {
   const { user } = useAuth();
+  const { id } = useParams();
   const db = getFirestore(firebaseApp);
   const postsCollection = collection(db, "posts");
   const navigate = useNavigate();
+
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
   const [disabledBtnConfirm, setDisabledBtnConfirm] = useState<boolean>(true);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [loadingPage, setLoadingPage] = useState<boolean>(true);
+
+  async function loadPost() {
+    setLoadingPage(true);
+
+    try {
+      const postRef = doc(db, "posts", `${id}`);
+      const post = await getDoc(postRef);
+
+      setTitle(post.data()!.title);
+      setText(post.data()!.text);
+    } catch (error) {
+      console.error("Erro ao buscar tarefas:", error);
+    } finally {
+      setLoadingPage(false);
+    }
+  }
+
+  useEffect(() => {
+    if (id) {
+      setIsEdit(true);
+      loadPost();
+    }
+
+    setLoadingPage(false);
+  }, []);
 
   useEffect(() => {
     if (title.length < 3 || text.length < 20) {
@@ -36,6 +74,7 @@ export function CreatePost() {
       title: title,
       date: `${new Date()}`,
       userId: user?.uid,
+      userName: user?.name,
     };
 
     try {
@@ -48,6 +87,29 @@ export function CreatePost() {
     } catch (error: any) {
       console.error("Erro ao cadastrar post:", error.message);
     }
+  }
+
+  async function handleEditPost() {
+    const postRef = doc(db, "posts", String(id));
+
+    try {
+      const updatedData = {
+        title,
+        text,
+      };
+
+      await updateDoc(postRef, updatedData);
+
+      navigate("/posts");
+      setText("");
+      setTitle("");
+    } catch (error) {
+      console.error("Erro ao editar post:", error);
+    }
+  }
+
+  if (loadingPage) {
+    return <PageLoading />;
   }
 
   return (
@@ -85,7 +147,7 @@ export function CreatePost() {
       <FooterCreate
         disabled={disabledBtnConfirm}
         pathToCancel={AuthenticatedPaths.posts.home}
-        onConfirm={handleCreatePost}
+        onConfirm={isEdit ? handleEditPost : handleCreatePost}
       />
     </div>
   );

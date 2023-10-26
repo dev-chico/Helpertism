@@ -1,5 +1,7 @@
 import { Button } from "../../../../components";
 import { FormGroup } from "../../../../components/FormGroup";
+import { FooterCreate } from "../../../../components/FooterCreate";
+import { AuthenticatedPaths } from "../../../../constants/paths";
 import defaultImage from "../../../../assets/imgs/defaultImg.png";
 import styles from "./createPost.module.css";
 
@@ -28,6 +30,12 @@ export function CreatePost() {
           placeholder="Era uma vez..."
         ></textarea>
       </form>
+
+      <FooterCreate
+        disabled={false}
+        pathToCancel={AuthenticatedPaths.posts.home}
+        onConfirm={() => console.log("confirm")}
+      />
     </div>
   );
 }

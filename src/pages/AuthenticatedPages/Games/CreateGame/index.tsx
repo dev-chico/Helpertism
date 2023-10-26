@@ -2,7 +2,7 @@ import { Button } from "../../../../components";
 import { FormGroup } from "../../../../components/FormGroup";
 import { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FooterCreate } from "../../../../components/FooterCreate";
 import { AuthenticatedPaths } from "../../../../constants/paths";
 import defaultImage from "../../../../assets/imgs/defaultImg.png";
 import styles from "./createGame.module.css";
@@ -45,6 +45,7 @@ export function CreateGame() {
       ...defaultQuestion,
     },
   ]);
+  const [title, setTitle] = useState<string>("");
 
   useEffect(() => {
     console.log("VALUES: ", rounds);
@@ -88,7 +89,12 @@ export function CreateGame() {
       </section>
 
       <form>
-        <FormGroup label="Digite o título do jogo" placeholder="Título..." />
+        <FormGroup
+          label="Digite o título do jogo"
+          placeholder="Título..."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </form>
 
       <hr className={styles.divider} />
@@ -143,16 +149,11 @@ export function CreateGame() {
         </button>
       </main>
 
-      <footer className={styles.footer}>
-        <Link to={AuthenticatedPaths.home}>
-          <Button bgColor="red" small>
-            Cancelar
-          </Button>
-        </Link>
-        <Button bgColor="blue" disabled small>
-          Salvar
-        </Button>
-      </footer>
+      <FooterCreate
+        disabled
+        pathToCancel={AuthenticatedPaths.home}
+        onConfirm={() => console.log("confirm")}
+      />
     </div>
   );
 }

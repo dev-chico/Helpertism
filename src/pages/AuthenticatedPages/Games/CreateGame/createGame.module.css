@@ -110,20 +110,3 @@
   cursor: not-allowed;
   background-color: var(--light-gray);
 }
-
-.container .footer {
-  width: 100%;
-  background-color: #f9f9f9;
-  position: fixed;
-  bottom: 0;
-
-  padding: 16px;
-  padding-right: 56px;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 32px;
-
-  box-shadow: inset 0px 1px 4px 0px rgba(0, 0, 0, 0.15);
-}

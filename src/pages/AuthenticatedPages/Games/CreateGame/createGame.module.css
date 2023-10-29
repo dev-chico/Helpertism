@@ -20,7 +20,8 @@
 }
 
 .container .uploadImageContainer img {
-  width: 600px;
+  width: 95%;
+  max-width: 600px;
 }
 
 .container form {
@@ -53,6 +54,7 @@
 
 .container .rounds {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   gap: 72px;
   width: 95%;
@@ -62,6 +64,7 @@
 .container .rounds .round {
   display: flex;
   flex-direction: column;
+
   gap: 32px;
 }
 
@@ -74,7 +77,8 @@
 .options {
   display: flex;
   align-items: center;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .options .opt {
@@ -109,4 +113,23 @@
 .addQuestion:disabled {
   cursor: not-allowed;
   background-color: var(--light-gray);
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 24px;
+  }
+
+  .container .uploadImageContainer {
+    align-items: center;
+  }
+
+  .options {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .opt {
+    width: 100%;
+  }
 }

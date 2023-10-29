@@ -8,15 +8,18 @@ interface IPageLayoutProps {
 }
 
 export function PageLayout({ children }: IPageLayoutProps) {
+  const viewSize = window.innerWidth;
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${viewSize < 900 && styles.mobile}`}>
       <section className={styles.header}>
         <Header />
       </section>
 
-      <section className={styles.menu}>
-        <Menu />
-      </section>
+      {viewSize > 900 && (
+        <section className={styles.menu}>
+          <Menu />
+        </section>
+      )}
 
       <main className={styles.content}>{children}</main>
     </div>

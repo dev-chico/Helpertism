@@ -3,8 +3,8 @@ import { FaArrowRightFromBracket, FaUser } from "react-icons/fa6";
 import { AuthenticatedPaths } from "../../constants/paths";
 import { MenuItem } from "./components/MenuItem/MenuItem";
 import { useAuth } from "../../contexts/AuthContext";
-import styles from "./menu.module.css";
 import { useNavigate } from "react-router-dom";
+import styles from "./menu.module.css";
 
 export function Menu() {
   const { logout } = useAuth();
@@ -22,7 +22,7 @@ export function Menu() {
           <FaGamepad size={20} />
         </MenuItem>
 
-        <MenuItem title="Atividades" path={AuthenticatedPaths.activities}>
+        <MenuItem title="Tarefas" path={AuthenticatedPaths.activities}>
           <FaCalendarDay size={20} />
         </MenuItem>
 

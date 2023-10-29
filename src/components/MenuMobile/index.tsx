@@ -29,7 +29,7 @@ export function MenuMobile() {
   return (
     <div className={styles.container}>
       <button onClick={handleToggleMenu}>
-        <FaBars size={20} color="var(--dark-blue)" />
+        <FaBars size={28} color="var(--dark-blue)" />
       </button>
 
       <ul className={`${styles.list} ${isOpenMenu && styles.open}`}>

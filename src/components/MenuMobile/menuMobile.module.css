@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.container > button {
+  background-color: transparent;
+}
+
 .container .list {
   position: absolute;
   right: 14px;

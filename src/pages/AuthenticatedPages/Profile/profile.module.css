@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 72px;
+  gap: 40px;
 }
 
 .container header h1 {
@@ -28,5 +28,5 @@
 }
 
 .container .buttonsContainer button:last-child {
-  margin-top: 64px;
+  margin-top: 32px;
 }

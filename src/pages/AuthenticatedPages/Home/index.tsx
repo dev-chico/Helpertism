@@ -10,6 +10,7 @@ import { AuthenticatedPaths } from "../../../constants/paths";
 import styles from "./home.module.css";
 
 export function Home() {
+  const viewSize = window.innerWidth;
   const [lastPlayedGames, setLastPlayedGames] = useState<ICard[]>([]);
   const [games, setGames] = useState<ICard[]>([]);
 
@@ -34,14 +35,14 @@ export function Home() {
             <HomeSection title="Últimos jogos">
               {lastPlayedGames.map((game: ICard) => (
                 <Card
-                  key={game.id}
-                  id={game.id}
+                  key={game.uid}
+                  uid={game.uid}
                   img={game.img}
                   title={game.title}
                   date={game.date}
                   description={game.description}
                 >
-                  <Link to={`${AuthenticatedPaths.games.play}/${game.id}`}>
+                  <Link to={`${AuthenticatedPaths.games.play}/${game.uid}`}>
                     <Button small>Jogar</Button>
                   </Link>
                 </Card>
@@ -53,14 +54,14 @@ export function Home() {
             <HomeSection title="Todos os jogos">
               {games.map((game: ICard) => (
                 <Card
-                  key={game.id}
-                  id={game.id}
+                  key={game.uid}
+                  uid={game.uid}
                   img={game.img}
                   title={game.title}
                   date={game.date}
                   description={game.description}
                 >
-                  <Link to={`${AuthenticatedPaths.games.play}/${game.id}`}>
+                  <Link to={`${AuthenticatedPaths.games.play}/${game.uid}`}>
                     <Button small>Jogar</Button>
                   </Link>
                 </Card>
@@ -74,7 +75,7 @@ export function Home() {
         ) : null}
       </main>
 
-      <DailyActivities />
+      {viewSize > 768 && <DailyActivities />}
     </div>
   );
 }

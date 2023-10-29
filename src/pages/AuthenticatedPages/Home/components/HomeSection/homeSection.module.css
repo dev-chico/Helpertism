@@ -17,3 +17,16 @@
   flex-wrap: wrap;
   gap: 32px;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    margin-top: 24px;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .container .content {
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -20,7 +20,8 @@
 }
 
 .container .uploadImageContainer img {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .container form {
@@ -40,7 +41,8 @@
   outline: none;
   padding: 16px;
   resize: none;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   height: 350px;
   border-radius: 12px;
   transition: all 0.15s ease-in-out;
@@ -55,4 +57,14 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 24px;
+  }
+
+  .container .uploadImageContainer {
+    align-items: center;
+  }
 }

@@ -1,6 +1,7 @@
 .container {
   width: fit-content;
-  height: 420px;
+  height: fit-content;
+  min-height: 425px;
   max-width: 285px;
   background-color: #fffbfe;
   border-radius: 18px;
@@ -29,6 +30,12 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.container main div h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .container main > div .date {

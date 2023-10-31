@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Button } from "../../../../components";
 import { FormGroup } from "../../../../components/FormGroup";
 import { FooterCreate } from "../../../../components/FooterCreate";
 import { AuthenticatedPaths } from "../../../../constants/paths";
@@ -11,6 +10,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage"; // Importe o módulo de armazenamento apropriado
 import { firebaseApp } from "../../../../services/firebase";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { v4 as uuidv4 } from "uuid";
@@ -24,11 +24,13 @@ export function CreatePost() {
   const { user } = useAuth();
   const { id } = useParams();
   const db = getFirestore(firebaseApp);
+
   const postsCollection = collection(db, "posts");
   const navigate = useNavigate();
 
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
+  const [image, setImage] = useState<File | null>(null);
   const [disabledBtnConfirm, setDisabledBtnConfirm] = useState<boolean>(true);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [loadingPage, setLoadingPage] = useState<boolean>(true);
@@ -42,6 +44,7 @@ export function CreatePost() {
 
       setTitle(post.data()!.title);
       setText(post.data()!.text);
+      setImage(post.data()!.image);
     } catch (error) {
       console.error("Erro ao buscar tarefas:", error);
     } finally {
@@ -75,13 +78,28 @@ export function CreatePost() {
       date: `${new Date()}`,
       userId: user?.uid,
       userName: user?.name,
+      image: "",
     };
+
+    if (image) {
+      try {
+        const storage = getStorage(firebaseApp);
+        const storageRef = ref(storage, `images/${taskUID}.jpg`);
+        await uploadBytes(storageRef, image);
+        const imageURL = await getDownloadURL(storageRef);
+        newPost.image = imageURL;
+      } catch (error) {
+        console.error("Erro ao fazer upload da imagem: ", error);
+        return;
+      }
+    }
 
     try {
       await setDoc(doc(postsCollection, taskUID), newPost);
 
       setText("");
       setTitle("");
+      setImage(null);
       navigate("/posts");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -96,13 +114,23 @@ export function CreatePost() {
       const updatedData = {
         title,
         text,
+        image: typeof image === "string" ? image : "",
       };
+
+      if (image) {
+        const storage = getStorage(firebaseApp);
+        const storageRef = ref(storage, `images/${id}.jpg`);
+        await uploadBytes(storageRef, image);
+        const imageURL = await getDownloadURL(storageRef);
+        updatedData.image = imageURL;
+      }
 
       await updateDoc(postRef, updatedData);
 
       navigate("/posts");
       setText("");
       setTitle("");
+      setImage(null);
     } catch (error) {
       console.error("Erro ao editar post:", error);
     }
@@ -120,12 +148,25 @@ export function CreatePost() {
 
       <section className={styles.uploadImageContainer}>
         <img
-          src={defaultImage}
+          src={
+            image
+              ? typeof image === "string"
+                ? image
+                : URL.createObjectURL(image)
+              : defaultImage
+          }
           alt="Imagem de um triângulo, um quadrado e um círculo cinzas"
         />
-        <Button small bgColor="gray">
-          Escolher arquivo
-        </Button>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const selectedFile = e.target.files && e.target.files[0];
+            if (selectedFile) {
+              setImage(selectedFile);
+            }
+          }}
+        />
       </section>
 
       <form>

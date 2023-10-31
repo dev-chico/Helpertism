@@ -22,18 +22,19 @@
 .container .uploadImageContainer img {
   width: 100%;
   max-width: 600px;
+  height: 100%;
+  max-height: 450px;
+  object-fit: contain;
 }
 
 .container form {
   margin-top: 24px;
   width: 100%;
   max-width: 600px;
-
+  padding-bottom: 94px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-
-  padding-bottom: 56px;
 }
 
 .container form .postContent {
@@ -57,6 +58,10 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
+}
+
+.container input[type="file"] {
+  padding-bottom: 5px;
 }
 
 @media screen and (max-width: 768px) {

@@ -393,7 +393,7 @@ export function CreateGame() {
   return (
     <div className={styles.container}>
       <header>
-        <h1>Novo jogo</h1>
+        <h1>{isEdit ? "Editar jogo" : "Novo jogo"}</h1>
       </header>
 
       <section className={styles.uploadImageContainer}>

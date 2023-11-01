@@ -218,7 +218,7 @@ export const Tasks = () => {
                     onClick={() => handleAddTask(date, day)}
                     disabled={!updatedTaskTexts[day - 1]}
                   >
-                    <FaPlus />
+                    <FaPlus size={18} />
                   </button>
                 </footer>
               </div>

@@ -124,6 +124,7 @@
   padding: 4px 8px;
   border-radius: 4px;
   width: 90%;
+  height: 35px;
 }
 
 .dateContainer > footer .btnAdd {
@@ -152,5 +153,12 @@
 
   .container .selectMonth {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .calendar .date {
+    width: 270px;
+    height: 300px;
   }
 }

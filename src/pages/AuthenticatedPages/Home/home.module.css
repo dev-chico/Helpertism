@@ -28,6 +28,10 @@
   margin-left: 4px;
 }
 
+.container .gamesList .btnAct {
+  background-color: transparent;
+}
+
 @media screen and (max-width: 768px) {
   .container .content::-webkit-scrollbar {
     width: 0px;

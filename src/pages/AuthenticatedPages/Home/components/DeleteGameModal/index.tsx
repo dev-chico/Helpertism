@@ -31,7 +31,7 @@ export function DeleteGameModal({
       confirmLabel="Deletar"
       onCancel={handleToggle}
       onConfirm={handleDelete}
-      title="Deletar Jogo"
+      title="Deletar jogo"
       visible={isOpen}
     >
       <div className={styles.container}>

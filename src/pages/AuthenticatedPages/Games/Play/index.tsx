@@ -5,7 +5,16 @@ import { Button } from "../../../../components";
 import { PageLoading } from "../../../../components/PageLoading";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { firebaseApp } from "../../../../services/firebase";
+import { EndGame } from "./components/endGame";
 import styles from "./play.module.css";
+
+export interface IQuiz {
+  id: string;
+  question: string;
+  image: string;
+  answerOptions: string[];
+  correctAnswer: string;
+}
 
 export function Play() {
   const { id } = useParams();
@@ -22,7 +31,7 @@ export function Play() {
   const [disabled, setDisabled] = useState<boolean>(true);
   const [isEnd, setIsEnd] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [quiz, setQuiz] = useState([
+  const [quiz, setQuiz] = useState<IQuiz[]>([
     {
       id: "",
       question: "",
@@ -123,36 +132,7 @@ export function Play() {
   }
 
   if (isEnd) {
-    return (
-      <main className={styles.endContainer}>
-        <section className={styles.points}>
-          <h1 className={styles.title}>Fim de jogo! 😁💙</h1>
-          <p className={styles.msgFinishGame}>
-            Sua pontuação final foi de: {score}{" "}
-            {score === 1 ? "ponto" : "pontos"}
-          </p>
-        </section>
-
-        <section className={styles.correctAnswersContainer}>
-          <p className={styles.subtitle}>
-            As respostas corretas para as perguntas eram:
-          </p>
-
-          {quiz.map((item, index) => (
-            <div className={styles.correctAnswer}>
-              <img src={item.image} alt={item.correctAnswer} />
-              <p key={index}>{item.correctAnswer}</p>
-            </div>
-          ))}
-        </section>
-
-        <Link to={AuthenticatedPaths.home}>
-          <Button bgColor="blue" rounded={false}>
-            Continuar
-          </Button>
-        </Link>
-      </main>
-    );
+    return <EndGame quiz={quiz} score={score} />;
   }
 
   if (loading) {
@@ -163,7 +143,9 @@ export function Play() {
     <>
       <div className={styles.container}>
         <Link to={AuthenticatedPaths.home} className={styles.back}>
-          <Button bgColor="blue">Sair</Button>
+          <Button bgColor="blue" small>
+            Sair
+          </Button>
         </Link>
 
         <main>

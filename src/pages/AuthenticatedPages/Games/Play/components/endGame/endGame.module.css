@@ -1,0 +1,79 @@
+.endContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 32px 0px;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.points .title {
+  color: var(--dark-blue);
+  font-size: 2.5em;
+}
+
+.points .msgFinishGame {
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.correctAnswersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 24px;
+  margin-bottom: 32px;
+}
+
+.correctAnswersContainer .subtitle {
+  color: var(--light-gray);
+  font-weight: 600;
+}
+
+.correctAnswer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.correctAnswer > img {
+  width: 300px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.correctAnswer > p {
+  font-weight: 700;
+  font-size: 1.6em;
+  color: #00ad54;
+  letter-spacing: 1px;
+}
+
+@media screen and (max-width: 500px) {
+  .endContainer {
+    padding: 24px;
+    gap: 24px;
+  }
+
+  .points .title {
+    font-size: 2em;
+  }
+
+  .correctAnswersContainer {
+    text-align: center;
+  }
+
+  .correctAnswer {
+    flex-direction: column-reverse;
+  }
+}

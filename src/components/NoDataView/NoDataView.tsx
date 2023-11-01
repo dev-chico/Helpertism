@@ -4,13 +4,14 @@ import styles from "./noDataView.module.css";
 
 interface INoDataViewProps {
   text: string;
+  path: string;
 }
 
-export function NoDataView({ text }: INoDataViewProps) {
+export function NoDataView({ text, path }: INoDataViewProps) {
   return (
     <div className={styles.container}>
       <div className={styles.noData}>
-        <Link to="/" className={styles.createGameLink}>
+        <Link to={path} className={styles.createGameLink}>
           {text}
         </Link>
         <div className={styles.icons}>😁💙</div>

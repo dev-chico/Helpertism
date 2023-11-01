@@ -122,7 +122,12 @@ export function Posts() {
           ))}
       </main>
 
-      {!postsList.length && <NoDataView text="Crie seu primeiro post" />}
+      {!postsList.length && (
+        <NoDataView
+          text="Crie seu primeiro post"
+          path={AuthenticatedPaths.posts.create}
+        />
+      )}
 
       <DeletePostModal
         isOpen={showModalDelete}

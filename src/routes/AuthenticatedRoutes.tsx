@@ -74,6 +74,10 @@ export const AuthenticatedRoutes: React.FC = () => {
           element={<CreateGame />}
         />
         <Route
+          path={`${AuthenticatedPaths.games.edit}/:id`}
+          element={<CreateGame />}
+        />
+        <Route
           path={`${AuthenticatedPaths.games.play}/:id`}
           element={<Play />}
         />

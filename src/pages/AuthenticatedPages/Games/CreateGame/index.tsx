@@ -1,22 +1,25 @@
 import { FormGroup } from "../../../../components/FormGroup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { FooterCreate } from "../../../../components/FooterCreate";
 import { AuthenticatedPaths } from "../../../../constants/paths";
 import { firebaseApp } from "../../../../services/firebase";
 import {
-  addDoc,
   collection,
   doc,
+  getDoc,
+  getDocs,
   getFirestore,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import defaultImage from "../../../../assets/imgs/defaultImg.png";
 import styles from "./createGame.module.css";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
+import { PageLoading } from "../../../../components/PageLoading";
 
 const defaultQuestion = {
   question: "",
@@ -25,6 +28,7 @@ const defaultQuestion = {
 };
 
 export function CreateGame() {
+  const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
   const db = getFirestore(firebaseApp);
@@ -62,8 +66,56 @@ export function CreateGame() {
   const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  async function createNewQuestion() {
+  async function loadGame() {
+    setIsLoading(true);
+
+    try {
+      const gameRef = doc(db, "games", `${id}`);
+      const gameSnapshot = await getDoc(gameRef);
+
+      if (gameSnapshot.exists()) {
+        const gameData = gameSnapshot.data();
+
+        setTitle(gameData.title);
+        setImage(gameData.img);
+        setDescription(gameData.description);
+
+        const roundsCollectionRef = collection(gameRef, "rounds");
+        const roundsQuerySnapshot = await getDocs(roundsCollectionRef);
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const loadedRounds: any[] = [];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        roundsQuerySnapshot.forEach((roundDoc: any) => {
+          const roundData = roundDoc.data();
+          loadedRounds.push(roundData);
+        });
+
+        console.log("ROUNDS: ", loadedRounds);
+
+        setRounds(loadedRounds);
+      } else {
+        console.error("Jogo não encontrado.");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar jogo:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (id) {
+      setIsEdit(true);
+      loadGame();
+    }
+
+    setIsLoading(false);
+  }, []);
+
+  async function handleCreateGame() {
     setIsLoading(true);
     const gameUID = uuidv4();
     const newGame = {
@@ -92,7 +144,10 @@ export function CreateGame() {
     await setDoc(gameDocRef, newGame);
 
     const roundPromises = rounds.map(async (round) => {
+      const roundUID = uuidv4();
+
       const newRound = {
+        uid: roundUID,
         question: round.question,
         image: round.image,
         correctAnswer: round.correctAnswer,
@@ -100,18 +155,13 @@ export function CreateGame() {
         gameId: gameUID,
       };
 
-      const roundDocRef = await addDoc(
-        collection(gameDocRef, "rounds"),
-        newRound
-      );
-      return roundDocRef;
+      const roundDocRef = doc(collection(gameDocRef, "rounds"), roundUID);
+      await setDoc(roundDocRef, newRound);
     });
 
     Promise.all(roundPromises)
       .then(() => {
         console.log("Todas as rodadas foram criadas com sucesso.");
-
-        setTitle("");
         setRounds([
           {
             uid: uuidv4(),
@@ -141,6 +191,9 @@ export function CreateGame() {
             ...defaultQuestion,
           },
         ]);
+
+        setDescription("");
+        setTitle("");
         setImage(null);
         setIsLoading(false);
         navigate("/jogos");
@@ -149,6 +202,94 @@ export function CreateGame() {
         setIsLoading(false);
         console.error("Erro ao criar as rodadas:", error);
       });
+  }
+
+  async function handleEditGame() {
+    const gameRef = doc(db, "games", String(id));
+
+    try {
+      const updatedData = {
+        title,
+        description,
+        img: typeof image === "string" ? image : "",
+      };
+
+      if (image) {
+        const storage = getStorage(firebaseApp);
+        const storageRef = ref(storage, `images/${id}.jpg`);
+        await uploadBytes(storageRef, image);
+        const imageURL = await getDownloadURL(storageRef);
+        updatedData.img = imageURL;
+      }
+
+      await updateDoc(gameRef, updatedData);
+
+      const roundPromises = rounds.map(async (round) => {
+        const newRound = {
+          question: round.question,
+          image: round.image,
+          correctAnswer: round.correctAnswer,
+          answerOptions: round.answerOptions,
+          gameId: id,
+        };
+
+        const roundDocRef = doc(collection(gameRef, "rounds"), round.uid);
+        await updateDoc(roundDocRef, newRound);
+        // const roundDocRef = await addDoc(
+        //   collection(gameDocRef, "rounds"),
+        //   newRound
+        // );
+        return roundDocRef;
+      });
+
+      Promise.all(roundPromises)
+        .then(() => {
+          console.log("Todas as rodadas foram criadas com sucesso.");
+
+          setTitle("");
+          setRounds([
+            {
+              uid: uuidv4(),
+              answerOptions: [
+                { uid: uuidv4(), text: "" },
+                { uid: uuidv4(), text: "" },
+                { uid: uuidv4(), text: "" },
+              ],
+              ...defaultQuestion,
+            },
+            {
+              uid: uuidv4(),
+              answerOptions: [
+                { uid: uuidv4(), text: "" },
+                { uid: uuidv4(), text: "" },
+                { uid: uuidv4(), text: "" },
+              ],
+              ...defaultQuestion,
+            },
+            {
+              uid: uuidv4(),
+              answerOptions: [
+                { uid: uuidv4(), text: "" },
+                { uid: uuidv4(), text: "" },
+                { uid: uuidv4(), text: "" },
+              ],
+              ...defaultQuestion,
+            },
+          ]);
+
+          setDescription("");
+          setTitle("");
+          setImage(null);
+          setIsLoading(false);
+          navigate("/jogos");
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          console.error("Erro ao criar as rodadas:", error);
+        });
+    } catch (error) {
+      console.error("Erro ao editar post:", error);
+    }
   }
 
   function removeQuestion(id: string) {
@@ -218,6 +359,36 @@ export function CreateGame() {
       },
     ]);
   }
+
+  function validateGame() {
+    if (!title.length || !description.length) {
+      return true;
+    }
+
+    if (rounds.length < 3) {
+      return true;
+    }
+
+    for (const round of rounds) {
+      if (!round.question) {
+        return true;
+      }
+
+      if (!round.correctAnswer) {
+        return true;
+      }
+
+      for (const option of round.answerOptions) {
+        if (!option.text) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  if (isLoading) return <PageLoading />;
 
   return (
     <div className={styles.container}>
@@ -340,9 +511,9 @@ export function CreateGame() {
       </main>
 
       <FooterCreate
-        disabled={isLoading}
+        disabled={validateGame()}
         pathToCancel={AuthenticatedPaths.home}
-        onConfirm={createNewQuestion}
+        onConfirm={isEdit ? handleEditGame : handleCreateGame}
       />
     </div>
   );

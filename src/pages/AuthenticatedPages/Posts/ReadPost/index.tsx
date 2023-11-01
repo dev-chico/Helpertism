@@ -3,9 +3,11 @@ import { NotFound } from "../../../NotFound";
 import { Loader } from "../../../../components/Loader";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { firebaseApp } from "../../../../services/firebase";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import img from "../../../../assets/imgs/defaultImg.png";
 import styles from "./read.module.css";
+import { AuthenticatedPaths } from "../../../../constants/paths";
+import { Button } from "../../../../components";
 
 interface IPost {
   image?: string;
@@ -60,6 +62,11 @@ export function ReadPost() {
 
   return (
     <div className={styles.container}>
+      <Link to={AuthenticatedPaths.posts.home}>
+        <Button small bgColor="blue">
+          Voltar
+        </Button>
+      </Link>
       <main>
         <img src={post?.image} alt={post?.title} />
 

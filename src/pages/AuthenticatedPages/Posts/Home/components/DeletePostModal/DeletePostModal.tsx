@@ -31,7 +31,7 @@ export function DeletePostModal({
       confirmLabel="Deletar"
       onCancel={handleToggle}
       onConfirm={handleDelete}
-      title="Deletar conta"
+      title="Deletar post"
       visible={isOpen}
     >
       <div className={styles.container}>

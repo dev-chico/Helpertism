@@ -12,6 +12,7 @@ import { collection, getDocs, getFirestore, query } from "firebase/firestore";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { DeletePostModal } from "./components/DeletePostModal/DeletePostModal";
 import styles from "./posts.module.css";
+import { HomeSection } from "../../Home/components/HomeSection";
 
 export function Posts() {
   const db = getFirestore(firebaseApp);
@@ -78,7 +79,6 @@ export function Posts() {
     <div className={styles.container}>
       {postsList.length > 0 && (
         <header className={styles.header}>
-          <h1>Últimos posts</h1>
           <Link to={AuthenticatedPaths.posts.create}>
             <Button small bgColor="orange">
               <FaPlus /> Novo post
@@ -88,38 +88,41 @@ export function Posts() {
       )}
 
       <main className={styles.content}>
-        {postsList.length > 0 &&
-          postsList.map((post: ICard) => (
-            <Card
-              key={post.uid}
-              uid={post.uid}
-              img={post.img}
-              title={post.title}
-              date={post.date}
-              description={post.description}
-            >
-              <Link to={`${AuthenticatedPaths.posts.read}/${post.uid}`}>
-                <Button small>Ler</Button>
-              </Link>
+        {postsList.length > 0 && (
+          <HomeSection title="Todos os posts">
+            {postsList.map((post: ICard) => (
+              <Card
+                key={post.uid}
+                uid={post.uid}
+                img={post.img}
+                title={post.title}
+                date={post.date}
+                description={post.description}
+              >
+                <Link to={`${AuthenticatedPaths.posts.read}/${post.uid}`}>
+                  <Button small>Ler</Button>
+                </Link>
 
-              {post.userId === user?.uid && (
-                <>
-                  <button
-                    className={styles.btnAct}
-                    onClick={() => handleOpenModalDelete(post.uid)}
-                  >
-                    <FaTrash color="var(--red)" size={24} />
-                  </button>
-                  <button
-                    className={styles.btnAct}
-                    onClick={() => navigateToEdit(post.uid)}
-                  >
-                    <FaEdit color="var(--yellow)" size={24} />
-                  </button>
-                </>
-              )}
-            </Card>
-          ))}
+                {post.userId === user?.uid && (
+                  <>
+                    <button
+                      className={styles.btnAct}
+                      onClick={() => handleOpenModalDelete(post.uid)}
+                    >
+                      <FaTrash color="var(--red)" size={24} />
+                    </button>
+                    <button
+                      className={styles.btnAct}
+                      onClick={() => navigateToEdit(post.uid)}
+                    >
+                      <FaEdit color="var(--yellow)" size={24} />
+                    </button>
+                  </>
+                )}
+              </Card>
+            ))}
+          </HomeSection>
+        )}
       </main>
 
       {!postsList.length && (

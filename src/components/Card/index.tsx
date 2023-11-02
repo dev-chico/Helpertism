@@ -1,4 +1,8 @@
 import { ReactNode } from "react";
+import defaultImg from "../../assets/imgs/cards/bg-1.png";
+import defaultImg2 from "../../assets/imgs/cards/bg-2.png";
+import defaultImg3 from "../../assets/imgs/cards/bg-3.png";
+import defaultImg4 from "../../assets/imgs/cards/bg-5.png";
 import styles from "./card.module.css";
 
 export interface ICard {
@@ -21,12 +25,19 @@ export function Card({
   date,
   description,
   img,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   uid,
 }: ICardProps) {
-  console.log("ID: ", uid);
+  const defaultImages = [defaultImg, defaultImg2, defaultImg3, defaultImg4];
+
+  const randomDefaultImg =
+    defaultImages[Math.floor(Math.random() * defaultImages.length)];
+
+  const imageSource = img || randomDefaultImg;
+
   return (
     <div className={styles.container}>
-      <img src={img} className={styles.img} />
+      <img src={imageSource} className={styles.img} />
 
       <main>
         <div>

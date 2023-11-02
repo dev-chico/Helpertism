@@ -1,8 +1,10 @@
 .container {
   width: 100%;
   height: 100%;
-  padding: 24px 24px 0px 24px;
   position: relative;
+  padding-top: 32px;
+  padding-left: 24px;
+  padding-right: 24px;
 
   display: flex;
   flex-direction: column;
@@ -36,4 +38,14 @@
 
 .btnAct {
   background-color: transparent;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    gap: 32px;
+  }
+
+  .container .header {
+    align-items: center;
+  }
 }

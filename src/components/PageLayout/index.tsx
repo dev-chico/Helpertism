@@ -9,7 +9,6 @@ interface IPageLayoutProps {
 }
 
 export function PageLayout({ children }: IPageLayoutProps) {
-  const viewSize = window.innerWidth;
   const [pageYPosition, setPageYPosition] = useState(0);
 
   function getPageYAfterScroll() {
@@ -26,27 +25,25 @@ export function PageLayout({ children }: IPageLayoutProps) {
   }
 
   return (
-    <div className={`${styles.container} ${viewSize < 900 && styles.mobile}`}>
+    <div className={styles.container}>
       <section className={styles.header}>
         <Header />
       </section>
 
-      {viewSize > 900 && (
-        <section className={styles.menu}>
-          <Menu />
-        </section>
-      )}
+      <section className={styles.menu}>
+        <Menu />
+      </section>
 
       <main className={styles.content}>{children}</main>
 
       <button
         type="button"
         className={`${styles.backToTop} ${
-          pageYPosition > 400 && styles.visible
+          pageYPosition > 250 && styles.visible
         }`}
         onClick={backToTop}
       >
-        <FaArrowUp size={28} color="#FFF" />
+        <FaArrowUp color="#FFF" />
       </button>
     </div>
   );

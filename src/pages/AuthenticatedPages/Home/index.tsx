@@ -24,7 +24,6 @@ export function Home() {
   const { user } = useAuth();
   const db = getFirestore(firebaseApp);
   const navigate = useNavigate();
-  const viewSize = window.innerWidth;
   const [games, setGames] = useState<ICard[]>([]);
   const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
   const [uidToDelete, setUidToDelete] = useState<string>("");
@@ -144,7 +143,7 @@ export function Home() {
         ) : null}
       </main>
 
-      {viewSize > 768 && <DailyActivities />}
+      <DailyActivities />
 
       <DeleteGameModal
         isOpen={showModalDelete}

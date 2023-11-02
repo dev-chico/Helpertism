@@ -77,8 +77,8 @@ export function DailyActivities() {
   console.log(activitiesList);
 
   async function handleChangeTasksList(id: number | string) {
-    console.log(id)
-    
+    console.log(id);
+
     const taskToUpdate = activitiesList.find((task) => task.uid === id);
 
     if (!taskToUpdate) {

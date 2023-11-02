@@ -1,4 +1,5 @@
 .container {
+  display: none;
   position: relative;
 }
 
@@ -47,4 +48,10 @@
 .container .list.open {
   opacity: 1;
   visibility: visible;
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    display: block;
+  }
 }

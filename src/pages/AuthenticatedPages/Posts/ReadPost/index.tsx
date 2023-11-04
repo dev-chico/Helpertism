@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { NotFound } from "../../../NotFound";
 import { Loader } from "../../../../components/Loader";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { firebaseApp } from "../../../../services/firebase";
-import { Link, useParams } from "react-router-dom";
-import img from "../../../../assets/imgs/defaultImg.png";
-import styles from "./read.module.css";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AuthenticatedPaths } from "../../../../constants/paths";
 import { Button } from "../../../../components";
+import img from "../../../../assets/imgs/defaultImg.png";
+import styles from "./read.module.css";
 
 interface IPost {
   image?: string;
@@ -19,6 +18,7 @@ interface IPost {
 
 export function ReadPost() {
   const db = getFirestore(firebaseApp);
+  const navigate = useNavigate();
   const { id } = useParams();
   const [post, setPost] = useState<IPost | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -57,7 +57,8 @@ export function ReadPost() {
   }
 
   if (!loading && !post) {
-    return <NotFound />;
+    navigate("/posts");
+    return;
   }
 
   return (

@@ -25,18 +25,15 @@ export function Card({
   date,
   description,
   img,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   uid,
 }: ICardProps) {
   const defaultImages = [defaultImg, defaultImg2, defaultImg3, defaultImg4];
-
   const randomDefaultImg =
     defaultImages[Math.floor(Math.random() * defaultImages.length)];
-
   const imageSource = img || randomDefaultImg;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${uid}`}>
       <img src={imageSource} className={styles.img} />
 
       <main>

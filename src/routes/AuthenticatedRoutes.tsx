@@ -55,12 +55,6 @@ const Tasks = lazy(() =>
   }))
 );
 
-const NotFound = lazy(() =>
-  import("../pages/NotFound").then(({ NotFound }) => ({
-    default: NotFound,
-  }))
-);
-
 export const AuthenticatedRoutes: React.FC = () => {
   return (
     <Suspense fallback={<PageLoading />}>
@@ -95,7 +89,7 @@ export const AuthenticatedRoutes: React.FC = () => {
         />
         <Route path={`${AuthenticatedPaths.activities}`} element={<Tasks />} />
         {/* Not Found */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </Suspense>
   );

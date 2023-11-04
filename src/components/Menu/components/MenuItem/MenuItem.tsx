@@ -18,7 +18,8 @@ export function MenuItem({
   onclick,
 }: IMenuItemProps) {
   const { pathname } = useLocation();
-  const isActualPage = pathname.includes(path);
+  const isActualPage =
+    pathname.includes(path) || (pathname.length === 1 && title === "Jogos");
 
   return (
     <div className={styles.container}>

@@ -14,36 +14,66 @@
   justify-content: center;
   flex-direction: column;
   gap: 40px;
+  text-align: center;
 }
 
 .container .noData .icons {
-  font-size: 5em;
+  font-size: 3em;
 }
 
 .container .noData .createGameLink {
-  font-size: 3em;
-  color: var(--blue);
+  font-size: 2.5em;
+  color: #fff;
+  background-color: var(--blue);
+  padding: 8px 16px;
+  border-radius: 8px;
   font-weight: 600;
+  text-align: center;
+  border: 2px solid transparent;
 }
 
 .container .noData .createGameLink:hover {
-  color: var(--light-blue);
+  color: var(--blue);
+  border-color: var(--blue);
+  background-color: #fff;
 }
 
 .container .noData .createGameLink:active {
-  color: var(--dark-blue);
+  color: #fff;
+  background-color: var(--dark-blue);
+  border-color: var(--dark-blue);
 }
 
 .container .firstBearImg {
   width: 100px;
   position: absolute;
-  left: 88%;
+  left: 0px;
   bottom: 0px;
 }
 
 .container .secondBearImg {
   width: 100px;
   position: absolute;
-  right: 88%;
   bottom: 0px;
+  right: 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .container .noData {
+    margin-bottom: 72px;
+    gap: 24px;
+  }
+
+  .container .noData .createGameLink {
+    font-size: 1.8em;
+  }
+
+  .container .noData .icons {
+    font-size: 3em;
+  }
+
+  .container .firstBearImg,
+  .container .secondBearImg {
+    width: 80px;
+  }
 }

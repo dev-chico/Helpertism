@@ -1,11 +1,10 @@
 import { FormEvent, useEffect, useState } from "react";
-import { Button, Input } from "../../../components";
+import { Button, Input, PasswordInput, Loader } from "../../../components";
 import { Link } from "react-router-dom";
 import { UnauthenticatedPaths } from "../../../constants/paths";
 import { useAuth } from "../../../contexts/AuthContext";
 import logo from "../../../assets/imgs/logo.png";
 import styles from "./login.module.css";
-import { Loader } from "../../../components/Loader";
 
 export function Login() {
   const { handleLogin, loading } = useAuth();
@@ -34,11 +33,10 @@ export function Login() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
             />
-            <Input
+            <PasswordInput
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onchange={setPassword}
               placeholder="Senha"
-              type="password"
             />
           </div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useState, FormEvent } from "react";
-import { Button, Input } from "../../../components";
+import { Button, Input, PasswordInput } from "../../../components";
 import { Link } from "react-router-dom";
 import { UnauthenticatedPaths } from "../../../constants/paths";
 import { useAuth } from "../../../contexts/AuthContext";
@@ -68,11 +68,10 @@ export function Register() {
               placeholder="Idade"
             />
             <div className={styles.confirmPassword}>
-              <Input
+              <PasswordInput
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onchange={setPassword}
                 placeholder="Senha"
-                type="password"
               />
 
               {shortPassword && (
@@ -80,13 +79,11 @@ export function Register() {
               )}
             </div>
             <div className={styles.confirmPassword}>
-              <Input
+              <PasswordInput
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onchange={setConfirmPassword}
                 placeholder="Confirme sua senha"
-                type="password"
               />
-
               {differentPasswords && <span>Senhas não conferem!</span>}
             </div>
           </div>

@@ -4,7 +4,7 @@ import { Card, ICard } from "../../../components/Card";
 import { DailyActivities } from "./components/DailyActivities";
 import { HomeSection } from "./components/HomeSection";
 import { Link, useNavigate } from "react-router-dom";
-import { NoDataView } from "../../../components/NoDataView/NoDataView";
+import { NoDataView } from "../../../components/NoDataView";
 import { AuthenticatedPaths } from "../../../constants/paths";
 import {
   collection,

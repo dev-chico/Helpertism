@@ -3,7 +3,7 @@ import { Button } from "../../../../components";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Card, ICard } from "../../../../components/Card";
-import { NoDataView } from "../../../../components/NoDataView/NoDataView";
+import { NoDataView } from "../../../../components/NoDataView";
 import { AuthenticatedPaths } from "../../../../constants/paths";
 import { PageLoading } from "../../../../components/PageLoading";
 import { firebaseApp } from "../../../../services/firebase";

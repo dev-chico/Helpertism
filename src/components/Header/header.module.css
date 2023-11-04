@@ -12,3 +12,11 @@
 .header img {
   width: 200px;
 }
+
+@media screen and (max-width: 768px) {
+  .header {
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+  }
+}

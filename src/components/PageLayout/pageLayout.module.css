@@ -58,6 +58,12 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .content {
+    margin-top: 64px;
+  }
+}
+
 @media screen and (max-width: 900px) {
   .container {
     grid-template-areas:

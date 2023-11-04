@@ -88,17 +88,15 @@ export function Home() {
 
   return (
     <div className={styles.container}>
-      <main className={styles.content}>
-        {games.length > 0 && (
+      {games.length > 0 && (
+        <main className={styles.content}>
           <Link to={AuthenticatedPaths.games.create}>
             <Button small bgColor="orange">
               Criar um novo jogo
             </Button>
           </Link>
-        )}
 
-        <section className={styles.gamesList}>
-          {games.length > 0 && (
+          <section className={styles.gamesList}>
             <HomeSection title="Todos os jogos">
               {games.map((game: ICard) => (
                 <Card
@@ -132,16 +130,16 @@ export function Home() {
                 </Card>
               ))}
             </HomeSection>
-          )}
-        </section>
+          </section>
+        </main>
+      )}
 
-        {games.length === 0 ? (
-          <NoDataView
-            text="Crie seu primeiro jogo"
-            path={AuthenticatedPaths.games.create}
-          />
-        ) : null}
-      </main>
+      {games.length === 0 ? (
+        <NoDataView
+          text="Crie seu primeiro jogo"
+          path={AuthenticatedPaths.games.create}
+        />
+      ) : null}
 
       <DailyActivities />
 

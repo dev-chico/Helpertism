@@ -43,6 +43,7 @@
 @media screen and (max-width: 768px) {
   .container {
     gap: 32px;
+    padding-top: 0px;
   }
 
   .container .header {

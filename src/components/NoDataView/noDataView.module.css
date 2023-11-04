@@ -60,7 +60,6 @@
 
 @media screen and (max-width: 768px) {
   .container .noData {
-    margin-bottom: 72px;
     gap: 24px;
   }
 
@@ -75,5 +74,15 @@
   .container .firstBearImg,
   .container .secondBearImg {
     width: 80px;
+  }
+
+  .container .firstBearImg {
+    top: 32px;
+    transform: rotate(90deg);
+  }
+
+  .container .secondBearImg {
+    transform: rotate(-90deg);
+    bottom: 112px;
   }
 }

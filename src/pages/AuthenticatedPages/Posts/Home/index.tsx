@@ -1,11 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../../../../components";
+import { Button, Card, PageLoading, NoDataView } from "../../../../components";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { Card, ICard } from "../../../../components/Card";
-import { NoDataView } from "../../../../components/NoDataView";
+import { ICard } from "../../../../components/Card";
 import { AuthenticatedPaths } from "../../../../constants/paths";
-import { PageLoading } from "../../../../components/PageLoading";
 import { firebaseApp } from "../../../../services/firebase";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { collection, getDocs, getFirestore, query } from "firebase/firestore";

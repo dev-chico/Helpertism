@@ -1,8 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { AuthenticatedPaths } from "../../../../constants/paths";
-import { Button } from "../../../../components";
-import { PageLoading } from "../../../../components/PageLoading";
+import { Button, PageLoading } from "../../../../components";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { firebaseApp } from "../../../../services/firebase";
 import { EndGame } from "./components/endGame";

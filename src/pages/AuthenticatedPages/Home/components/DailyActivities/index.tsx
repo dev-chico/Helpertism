@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../../../../../components";
+import { Button, PageLoading } from "../../../../../components";
 import { AuthenticatedPaths } from "../../../../../constants/paths";
-import { PageLoading } from "../../../../../components/PageLoading";
 import { firebaseApp } from "../../../../../services/firebase";
 import {
   collection,

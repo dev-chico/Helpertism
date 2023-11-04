@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Loader } from "../../../../components/Loader";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { firebaseApp } from "../../../../services/firebase";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AuthenticatedPaths } from "../../../../constants/paths";
-import { Button } from "../../../../components";
+import { Button, Loader } from "../../../../components";
 import img from "../../../../assets/imgs/defaultImg.png";
 import styles from "./read.module.css";
 

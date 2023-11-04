@@ -1,7 +1,6 @@
-import { FormGroup } from "../../../../components/FormGroup";
 import { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
-import { FooterCreate } from "../../../../components/FooterCreate";
+import { FooterCreate, FormGroup, PageLoading } from "../../../../components";
 import { AuthenticatedPaths } from "../../../../constants/paths";
 import { firebaseApp } from "../../../../services/firebase";
 import {
@@ -19,7 +18,6 @@ import styles from "./createGame.module.css";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
-import { PageLoading } from "../../../../components/PageLoading";
 
 const defaultQuestion = {
   question: "",

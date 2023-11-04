@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Button } from "../../../components";
-import { Card, ICard } from "../../../components/Card";
+import { Button, Card, NoDataView, PageLoading } from "../../../components";
+import { ICard } from "../../../components/Card";
 import { DailyActivities } from "./components/DailyActivities";
 import { HomeSection } from "./components/HomeSection";
 import { Link, useNavigate } from "react-router-dom";
-import { NoDataView } from "../../../components/NoDataView";
 import { AuthenticatedPaths } from "../../../constants/paths";
 import {
   collection,
@@ -16,7 +15,6 @@ import {
 import { firebaseApp } from "../../../services/firebase";
 import { useAuth } from "../../../contexts/AuthContext";
 import { FaTrash, FaEdit } from "react-icons/fa";
-import { PageLoading } from "../../../components/PageLoading";
 import { DeleteGameModal } from "./components/DeleteGameModal";
 import styles from "./home.module.css";
 

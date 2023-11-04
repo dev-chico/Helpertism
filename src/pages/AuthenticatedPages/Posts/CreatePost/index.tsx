@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { FormGroup } from "../../../../components/FormGroup";
-import { FooterCreate } from "../../../../components/FooterCreate";
+import { FormGroup, FooterCreate, PageLoading } from "../../../../components";
 import { AuthenticatedPaths } from "../../../../constants/paths";
 import {
   collection,
@@ -16,7 +15,6 @@ import { useAuth } from "../../../../contexts/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { PageLoading } from "../../../../components/PageLoading";
 import defaultImage from "../../../../assets/imgs/defaultImg.png";
 import styles from "./createPost.module.css";
 

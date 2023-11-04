@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Modal } from "../../../../../components";
-import { FormGroup } from "../../../../../components/FormGroup";
+import { Modal, FormGroup } from "../../../../../components";
 import { useAuth } from "../../../../../contexts/AuthContext";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { firebaseApp } from "../../../../../services/firebase";

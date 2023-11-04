@@ -1,11 +1,10 @@
 import { useEffect, useState, FormEvent } from "react";
-import { Button, Input, PasswordInput } from "../../../components";
+import { Button, Input, PasswordInput, Loader } from "../../../components";
 import { Link } from "react-router-dom";
 import { UnauthenticatedPaths } from "../../../constants/paths";
 import { useAuth } from "../../../contexts/AuthContext";
 import logo from "../../../assets/imgs/logo.png";
 import styles from "./register.module.css";
-import { Loader } from "../../../components/Loader";
 
 export function Register() {
   const { handleSignUp, loading } = useAuth();

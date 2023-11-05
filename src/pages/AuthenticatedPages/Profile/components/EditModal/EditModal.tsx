@@ -4,6 +4,7 @@ import { useAuth } from "../../../../../contexts/AuthContext";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import { firebaseApp } from "../../../../../services/firebase";
 import styles from "./editModal.module.css";
+import { toast } from "../../../../../components/Toast/toast";
 
 interface IEditModalProps {
   handleToggle: () => void;
@@ -47,8 +48,18 @@ export function EditModal({ handleToggle, isOpen }: IEditModalProps) {
       });
 
       setPassword("");
+      toast({
+        duration: 3000,
+        text: "Perfil editado com sucesso!",
+        type: "success",
+      });
     } catch (error) {
       console.error("Erro ao editar perfil:", error);
+      toast({
+        duration: 3000,
+        text: "Erro ao editar perfil!",
+        type: "danger",
+      });
     }
   }
 

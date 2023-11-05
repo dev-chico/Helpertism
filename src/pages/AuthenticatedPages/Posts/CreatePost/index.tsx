@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import defaultImage from "../../../../assets/imgs/defaultImg.png";
 import styles from "./createPost.module.css";
+import { toast } from "../../../../components/Toast/toast";
 
 export function CreatePost() {
   const { user } = useAuth();
@@ -109,9 +110,17 @@ export function CreatePost() {
       setTitle("");
       setImage(null);
       navigate("/posts");
+      toast({
+        text: "Post criado com sucesso!",
+        type: "success",
+      });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Erro ao cadastrar post:", error.message);
+      toast({
+        text: "Erro ao cadastrar post!",
+        type: "danger",
+      });
     }
   }
 
@@ -140,8 +149,16 @@ export function CreatePost() {
       await updateDoc(postRef, updatedData);
 
       navigate("/posts");
+      toast({
+        text: "Post editado com sucesso!",
+        type: "success",
+      });
     } catch (error) {
       console.error("Erro ao editar post:", error);
+      toast({
+        text: "Erro ao editar post!",
+        type: "danger",
+      });
     } finally {
       setLoadingPage(false);
       setText("");

@@ -18,6 +18,7 @@ import styles from "./createGame.module.css";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../../../contexts/AuthContext";
+import { toast } from "../../../../components/Toast/toast";
 
 const defaultQuestion = {
   question: "",
@@ -163,7 +164,6 @@ export function CreateGame() {
 
     Promise.all(roundPromises)
       .then(() => {
-        console.log("Todas as rodadas foram criadas com sucesso.");
         setRounds([
           {
             uid: uuidv4(),
@@ -199,9 +199,17 @@ export function CreateGame() {
         setImage(null);
         setIsLoading(false);
         navigate("/jogos");
+        toast({
+          text: "Jogo criado com sucesso",
+          type: "success",
+        });
       })
       .catch((error) => {
         setIsLoading(false);
+        toast({
+          text: "Erro ao criar jogo",
+          type: "danger",
+        });
         console.error("Erro ao criar as rodadas:", error);
       });
   }
@@ -285,8 +293,17 @@ export function CreateGame() {
           setIsLoading(false);
           console.error("Erro ao criar as rodadas:", error);
         });
+
+      toast({
+        text: "Jogo editado com sucesso",
+        type: "success",
+      });
     } catch (error) {
-      console.error("Erro ao editar post:", error);
+      console.error("Erro ao editar jogo:", error);
+      toast({
+        text: "Erro ao editar jogo",
+        type: "danger",
+      });
     } finally {
       setIsLoading(false);
       setDescription("");

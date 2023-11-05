@@ -2,6 +2,7 @@ import { deleteDoc, doc, getFirestore } from "firebase/firestore";
 import { firebaseApp } from "../../../../../../services/firebase";
 import { Modal } from "../../../../../../components";
 import styles from "./deletePostModal.module.css";
+import { toast } from "../../../../../../components/Toast/toast";
 
 interface IDeletePostModalProps {
   handleToggle: () => void;
@@ -20,8 +21,16 @@ export function DeletePostModal({
     try {
       await deleteDoc(postRef);
       handleToggle();
+      toast({
+        text: "Post deletado com sucesso!",
+        type: "success",
+      });
     } catch (error) {
       console.error("Erro ao excluir post:", error);
+      toast({
+        text: "Erro ao deletar post!",
+        type: "danger",
+      });
     }
   }
 

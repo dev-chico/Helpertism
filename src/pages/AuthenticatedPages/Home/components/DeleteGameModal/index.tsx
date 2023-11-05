@@ -2,6 +2,7 @@ import { deleteDoc, doc, getFirestore } from "firebase/firestore";
 import { firebaseApp } from "../../../../../services/firebase";
 import { Modal } from "../../../../../components";
 import styles from "./deleteGameModal.module.css";
+import { toast } from "../../../../../components/Toast/toast";
 
 interface IDeletePostModalProps {
   handleToggle: () => void;
@@ -20,8 +21,16 @@ export function DeleteGameModal({
     try {
       await deleteDoc(postRef);
       handleToggle();
+      toast({
+        text: "Jogo deletado com sucesso!",
+        type: "success",
+      });
     } catch (error) {
-      console.error("Erro ao excluir post:", error);
+      console.error("Erro ao excluir jogo:", error);
+      toast({
+        text: "Erro ao deletar jogo!",
+        type: "danger",
+      });
     }
   }
 

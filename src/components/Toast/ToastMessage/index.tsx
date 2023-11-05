@@ -7,7 +7,7 @@ export interface IMessage {
   id: number;
   text: string;
   type: "default" | "success" | "danger";
-  duration: number;
+  duration?: number;
 }
 
 interface IToastMessage {

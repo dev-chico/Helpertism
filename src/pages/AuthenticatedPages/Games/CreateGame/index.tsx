@@ -65,6 +65,7 @@ export function CreateGame() {
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [imageToEdit, setImageToEdit] = useState("");
 
   async function loadGame() {
     setIsLoading(true);
@@ -76,8 +77,10 @@ export function CreateGame() {
       if (gameSnapshot.exists()) {
         const gameData = gameSnapshot.data();
 
+        console.log(gameData);
+
         setTitle(gameData.title);
-        setImage(gameData.img);
+        setImageToEdit(gameData.img);
         setDescription(gameData.description);
 
         const roundsCollectionRef = collection(gameRef, "rounds");
@@ -115,6 +118,7 @@ export function CreateGame() {
 
   async function handleCreateGame() {
     setIsLoading(true);
+
     const gameUID = uuidv4();
     const newGame = {
       uid: gameUID,
@@ -203,21 +207,25 @@ export function CreateGame() {
   }
 
   async function handleEditGame() {
+    setIsLoading(true);
+
     const gameRef = doc(db, "games", String(id));
 
     try {
       const updatedData = {
         title,
         description,
-        img: typeof image === "string" ? image : "",
+        img: "",
       };
 
-      if (image) {
+      if (image !== null) {
         const storage = getStorage(firebaseApp);
         const storageRef = ref(storage, `images/${id}.jpg`);
         await uploadBytes(storageRef, image);
         const imageURL = await getDownloadURL(storageRef);
         updatedData.img = imageURL;
+      } else {
+        updatedData.img = imageToEdit;
       }
 
       await updateDoc(gameRef, updatedData);
@@ -233,10 +241,6 @@ export function CreateGame() {
 
         const roundDocRef = doc(collection(gameRef, "rounds"), round.uid);
         await updateDoc(roundDocRef, newRound);
-        // const roundDocRef = await addDoc(
-        //   collection(gameDocRef, "rounds"),
-        //   newRound
-        // );
         return roundDocRef;
       });
 
@@ -275,10 +279,6 @@ export function CreateGame() {
             },
           ]);
 
-          setDescription("");
-          setTitle("");
-          setImage(null);
-          setIsLoading(false);
           navigate("/jogos");
         })
         .catch((error) => {
@@ -287,6 +287,13 @@ export function CreateGame() {
         });
     } catch (error) {
       console.error("Erro ao editar post:", error);
+    } finally {
+      setIsLoading(false);
+      setDescription("");
+      setTitle("");
+      setImage(null);
+      setImageToEdit("");
+      setIsLoading(false);
     }
   }
 
@@ -397,10 +404,10 @@ export function CreateGame() {
       <section className={styles.uploadImageContainer}>
         <img
           src={
-            image
-              ? typeof image === "string"
-                ? image
-                : URL.createObjectURL(image)
+            image !== null
+              ? URL.createObjectURL(image)
+              : imageToEdit.length
+              ? imageToEdit
               : defaultImage
           }
           alt="Imagem de um triângulo, um quadrado e um círculo cinzas"

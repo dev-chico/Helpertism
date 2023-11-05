@@ -32,6 +32,7 @@ export function CreatePost() {
   const [disabledBtnConfirm, setDisabledBtnConfirm] = useState<boolean>(true);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [loadingPage, setLoadingPage] = useState<boolean>(true);
+  const [imageToEdit, setImageToEdit] = useState("");
 
   async function loadPost() {
     setLoadingPage(true);
@@ -40,9 +41,11 @@ export function CreatePost() {
       const postRef = doc(db, "posts", `${id}`);
       const post = await getDoc(postRef);
 
+      console.log(post.data());
+
       setTitle(post.data()!.title);
       setText(post.data()!.text);
-      setImage(post.data()!.image);
+      setImageToEdit(post.data()!.image);
     } catch (error) {
       console.error("Erro ao buscar tarefas:", error);
     } finally {
@@ -68,6 +71,8 @@ export function CreatePost() {
   }, [title, text]);
 
   async function handleCreatePost() {
+    setLoadingPage(true);
+
     const taskUID = uuidv4();
     const newPost = {
       uid: taskUID,
@@ -89,6 +94,11 @@ export function CreatePost() {
       } catch (error) {
         console.error("Erro ao fazer upload da imagem: ", error);
         return;
+      } finally {
+        setLoadingPage(false);
+        setText("");
+        setImage(null);
+        setTitle("");
       }
     }
 
@@ -106,31 +116,38 @@ export function CreatePost() {
   }
 
   async function handleEditPost() {
+    setLoadingPage(true);
+
     const postRef = doc(db, "posts", String(id));
 
     try {
       const updatedData = {
         title,
         text,
-        image: typeof image === "string" ? image : "",
+        image: "",
       };
 
-      if (image) {
+      if (image !== null) {
         const storage = getStorage(firebaseApp);
         const storageRef = ref(storage, `images/${id}.jpg`);
         await uploadBytes(storageRef, image);
         const imageURL = await getDownloadURL(storageRef);
         updatedData.image = imageURL;
+      } else {
+        updatedData.image = imageToEdit;
       }
 
       await updateDoc(postRef, updatedData);
 
       navigate("/posts");
+    } catch (error) {
+      console.error("Erro ao editar post:", error);
+    } finally {
+      setLoadingPage(false);
       setText("");
       setTitle("");
       setImage(null);
-    } catch (error) {
-      console.error("Erro ao editar post:", error);
+      setImageToEdit("");
     }
   }
 
@@ -147,10 +164,10 @@ export function CreatePost() {
       <section className={styles.uploadImageContainer}>
         <img
           src={
-            image
-              ? typeof image === "string"
-                ? image
-                : URL.createObjectURL(image)
+            image !== null
+              ? URL.createObjectURL(image)
+              : imageToEdit.length
+              ? imageToEdit
               : defaultImage
           }
           alt="Imagem de um triângulo, um quadrado e um círculo cinzas"

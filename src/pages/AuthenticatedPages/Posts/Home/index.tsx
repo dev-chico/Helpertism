@@ -24,6 +24,7 @@ export function Posts() {
 
   async function loadPosts() {
     setLoadingPage(true);
+
     try {
       const q = query(collection(db, "posts"));
       const querySnapshot = await getDocs(q);
@@ -42,6 +43,8 @@ export function Posts() {
 
         postsData.push(newPost);
       });
+
+      console.log("POSTS: ", postsData);
 
       setPostsList(postsData);
     } catch (error) {

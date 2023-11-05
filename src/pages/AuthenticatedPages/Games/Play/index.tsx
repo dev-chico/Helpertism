@@ -134,9 +134,7 @@ export function Play() {
     return <EndGame quiz={quiz} score={score} />;
   }
 
-  if (loading) {
-    return <PageLoading />;
-  }
+  if (loading) return <PageLoading />;
 
   return (
     <>
@@ -150,9 +148,11 @@ export function Play() {
         <main>
           <header>
             <h2 className={styles.title}>{question}</h2>
-            <div className={styles.imgContainer}>
-              <img className={styles.image} src={image} />
-            </div>
+            {image.length > 0 && (
+              <div className={styles.imgContainer}>
+                <img className={styles.image} src={image} />
+              </div>
+            )}
           </header>
 
           <section className={styles.buttonsControl}>

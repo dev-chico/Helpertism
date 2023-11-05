@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import { AuthenticatedPaths } from '../../../../../../constants/paths';
-import { Button } from '../../../../../../components';
-import { IQuiz } from '../..';
-import styles from './endGame.module.css'
+import { Link } from "react-router-dom";
+import { AuthenticatedPaths } from "../../../../../../constants/paths";
+import { Button } from "../../../../../../components";
+import { IQuiz } from "../..";
+import styles from "./endGame.module.css";
 
 interface IEndGame {
   score: number;
-  quiz: IQuiz[]
+  quiz: IQuiz[];
 }
 
 export function EndGame({ score, quiz }: IEndGame) {
@@ -26,7 +26,9 @@ export function EndGame({ score, quiz }: IEndGame) {
 
         {quiz.map((item, index) => (
           <div className={styles.correctAnswer}>
-            <img src={item.image} alt={item.correctAnswer} />
+            {item.image.length > 0 && (
+              <img src={item.image} alt={item.correctAnswer} />
+            )}
             <p key={index}>{item.correctAnswer}</p>
           </div>
         ))}

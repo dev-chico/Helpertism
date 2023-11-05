@@ -247,8 +247,11 @@ export function CreateGame() {
           gameId: id,
         };
 
+        console.log("new Round: ", newRound);
+
         const roundDocRef = doc(collection(gameRef, "rounds"), round.uid);
-        await updateDoc(roundDocRef, newRound);
+        await setDoc(roundDocRef, newRound, { merge: true });
+
         return roundDocRef;
       });
 
@@ -291,7 +294,7 @@ export function CreateGame() {
         })
         .catch((error) => {
           setIsLoading(false);
-          console.error("Erro ao criar as rodadas:", error);
+          console.error("Erro ao editar as rodadas:", error);
         });
 
       toast({

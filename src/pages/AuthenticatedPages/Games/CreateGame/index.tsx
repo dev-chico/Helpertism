@@ -67,6 +67,7 @@ export function CreateGame() {
   const [isLoading, setIsLoading] = useState(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [imageToEdit, setImageToEdit] = useState("");
+  const [gameMode, setGameMode] = useState<"easy" | "hard">("easy");
 
   async function loadGame() {
     setIsLoading(true);
@@ -83,6 +84,7 @@ export function CreateGame() {
         setTitle(gameData.title);
         setImageToEdit(gameData.img);
         setDescription(gameData.description);
+        setGameMode(gameData.mode);
 
         const roundsCollectionRef = collection(gameRef, "rounds");
         const roundsQuerySnapshot = await getDocs(roundsCollectionRef);
@@ -125,6 +127,7 @@ export function CreateGame() {
       uid: gameUID,
       title: title,
       description: description,
+      mode: gameMode,
       img: "",
       date: `${new Date()}`,
       userId: user?.uid,
@@ -223,6 +226,7 @@ export function CreateGame() {
       const updatedData = {
         title,
         description,
+        mode: gameMode,
         img: "",
       };
 
@@ -301,6 +305,7 @@ export function CreateGame() {
         text: "Jogo editado com sucesso",
         type: "success",
       });
+      navigate("/jogos");
     } catch (error) {
       console.error("Erro ao editar jogo:", error);
       toast({
@@ -314,6 +319,7 @@ export function CreateGame() {
       setImage(null);
       setImageToEdit("");
       setIsLoading(false);
+      setGameMode("easy");
     }
   }
 
@@ -458,6 +464,49 @@ export function CreateGame() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+
+        <section className={styles.gameMode}>
+          <h3>Modo de jogo</h3>
+
+          <main>
+            <div className={styles.formGroup}>
+              <input
+                type="radio"
+                name="radio-easy"
+                id="radio-easy"
+                checked={gameMode === "easy"}
+                onChange={() => setGameMode("easy")}
+              />
+              <label htmlFor="radio-easy">Fácil</label>
+
+              <div className={styles.tooltip}>
+                <span>
+                  O jogador sempre vai acertar! Só é permitido ir para a próxima
+                  fase quando selecionar a resposta correta.
+                </span>
+              </div>
+            </div>
+
+            <div className={styles.formGroup}>
+              <input
+                type="radio"
+                name="radio-hard"
+                id="radio-hard"
+                checked={gameMode === "hard"}
+                onChange={() => setGameMode("hard")}
+              />
+              <label htmlFor="radio-hard">Difícil</label>
+
+              <div className={styles.tooltip}>
+                <span>
+                  O jogador pode errar! Ao final do jogo, é apresentado quantas
+                  perguntas o jogador acertou e a lista das perguntas com as
+                  respostas corretas.
+                </span>
+              </div>
+            </div>
+          </main>
+        </section>
       </form>
 
       <hr className={styles.divider} />

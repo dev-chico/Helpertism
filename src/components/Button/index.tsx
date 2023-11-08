@@ -3,10 +3,10 @@ import styles from "./button.module.css";
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  bgColor?: "blue" | "red" | "gray" | "white" | "orange";
+  bgColor?: "blue" | "red" | "gray" | "white" | "orange" | "green";
   rounded?: boolean;
   small?: boolean;
-  className?: string
+  className?: string;
 }
 
 export function Button({

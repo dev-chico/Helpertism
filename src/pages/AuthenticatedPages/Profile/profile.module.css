@@ -44,3 +44,9 @@
 .container .buttonsContainer button:last-child {
   margin-top: 32px;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    background-image: none;
+  }
+}

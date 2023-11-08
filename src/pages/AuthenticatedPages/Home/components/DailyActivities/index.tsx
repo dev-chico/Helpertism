@@ -105,7 +105,7 @@ export function DailyActivities() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Minhas atividades diárias</h2>
+      <h2 className={styles.title}>Minhas tarefas diárias</h2>
 
       <main>
         <ul>
@@ -129,7 +129,9 @@ export function DailyActivities() {
 
       <footer>
         <Link to={AuthenticatedPaths.activities}>
-          <Button>Ver atividades da semana</Button>
+          <Button>
+            {!activitiesList.length ? "Cadastre suas tarefas" : "Ver tarefas"}
+          </Button>
         </Link>
       </footer>
     </div>

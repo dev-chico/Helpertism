@@ -84,5 +84,6 @@
   .container .secondBearImg {
     transform: rotate(-90deg);
     bottom: 112px;
+    right: 5px;
   }
 }

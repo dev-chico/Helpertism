@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+}
+
+.container .texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  text-align: center;
+}
+
+.texts h1 {
+  font-size: 3em;
+  color: var(--dark-blue);
+}
+
+.texts p {
+  color: var(--blue);
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 500px) {
+  .texts h1 {
+    font-size: 2.2em;
+  }
+
+  .texts p {
+    font-size: 1em;
+  }
+}

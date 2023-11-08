@@ -60,7 +60,7 @@
 
 @media screen and (max-width: 768px) {
   .content {
-    margin-top: 64px;
+    padding-top: 88px;
   }
 }
 

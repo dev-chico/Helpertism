@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { AuthenticatedPaths } from "../../../../../../constants/paths";
 import { Button } from "../../../../../../components";
-import { IQuiz } from "../..";
+import { AuthenticatedPaths } from "../../../../../../constants/paths";
+import { IQuiz } from ".";
 import styles from "./endGame.module.css";
 
 interface IEndGame {
@@ -9,7 +9,7 @@ interface IEndGame {
   quiz: IQuiz[];
 }
 
-export function EndGame({ score, quiz }: IEndGame) {
+export function EndGameHard({ score, quiz }: IEndGame) {
   return (
     <main className={styles.endContainer}>
       <section className={styles.points}>

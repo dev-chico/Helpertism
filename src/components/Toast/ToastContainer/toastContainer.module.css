@@ -1,8 +1,23 @@
 .container {
   position: fixed;
-  bottom: 48px;
-  z-index: 1;
+  z-index: 20;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
+  width: 90%;
+  max-width: 600px;
+}
+
+.container.bottom {
+  bottom: 48px;
+}
+
+.container.top {
+  top: 48px;
+}
+
+@media screen and (max-width: 768px) {
+  .container.top {
+    top: 80px;
+  }
 }

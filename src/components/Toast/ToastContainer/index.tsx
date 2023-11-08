@@ -5,9 +5,10 @@ import styles from "./toastContainer.module.css";
 
 export function ToastContainer() {
   const [messages, setMessages] = useState<IMessage[]>([]);
+  const [position, setPosition] = useState<"top" | "bottom">("bottom");
 
   useEffect(() => {
-    function handleAddToast({ type, text, duration }: IToast) {
+    function handleAddToast({ type, text, duration, position }: IToast) {
       setMessages((prevState) => [
         ...prevState,
         {
@@ -17,6 +18,8 @@ export function ToastContainer() {
           duration,
         },
       ]);
+
+      if (position) setPosition(position);
     }
 
     toastEventManager.on("addtoast", handleAddToast);
@@ -31,7 +34,11 @@ export function ToastContainer() {
   }, []);
 
   return (
-    <div className={styles.container} tabIndex={0} role="button">
+    <div
+      className={`${styles.container} ${styles[position]}`}
+      tabIndex={0}
+      role="button"
+    >
       {messages.map((message) => (
         <ToastMessage
           key={message.id}

@@ -88,6 +88,25 @@
   border-color: var(--blue);
 }
 
+/* BUTTON GREEN */
+.green {
+  background-color: #39a557;
+  color: #FFF;
+  border-color: #FFF;
+}
+
+.green:hover {
+  background-color: #3fc164;
+  color: #FFF;
+  border-color: #FFF;
+}
+
+.green:active {
+  background-color: #2b8745;
+  color: #FFF;
+  border-color: #FFF;
+}
+
 .defaultButton.small {
   font-size: 0.7em;
   height: 30px;

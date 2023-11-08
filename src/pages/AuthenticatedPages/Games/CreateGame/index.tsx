@@ -5,6 +5,7 @@ import { AuthenticatedPaths } from "../../../../constants/paths";
 import { firebaseApp } from "../../../../services/firebase";
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -79,8 +80,6 @@ export function CreateGame() {
       if (gameSnapshot.exists()) {
         const gameData = gameSnapshot.data();
 
-        console.log(gameData);
-
         setTitle(gameData.title);
         setImageToEdit(gameData.img);
         setDescription(gameData.description);
@@ -96,8 +95,6 @@ export function CreateGame() {
           const roundData = roundDoc.data();
           loadedRounds.push(roundData);
         });
-
-        console.log("ROUNDS: ", loadedRounds);
 
         setRounds(loadedRounds);
       } else {
@@ -242,8 +239,17 @@ export function CreateGame() {
 
       await updateDoc(gameRef, updatedData);
 
+      // Exclua todas as rodadas existentes
+      const roundsCollectionRef = collection(gameRef, "rounds");
+      const existingRoundsQuerySnapshot = await getDocs(roundsCollectionRef);
+      existingRoundsQuerySnapshot.forEach(async (roundDoc) => {
+        await deleteDoc(roundDoc.ref);
+      });
+
       const roundPromises = rounds.map(async (round) => {
+        const newRoundUID = round.uid || uuidv4(); // Gere um novo uid se não houver um
         const newRound = {
+          uid: newRoundUID,
           question: round.question,
           image: round.image,
           correctAnswer: round.correctAnswer,
@@ -251,9 +257,7 @@ export function CreateGame() {
           gameId: id,
         };
 
-        console.log("new Round: ", newRound);
-
-        const roundDocRef = doc(collection(gameRef, "rounds"), round.uid);
+        const roundDocRef = doc(collection(gameRef, "rounds"), newRoundUID);
         await setDoc(roundDocRef, newRound, { merge: true });
 
         return roundDocRef;
@@ -323,10 +327,12 @@ export function CreateGame() {
     }
   }
 
-  function removeQuestion(id: string) {
-    if (rounds.length > 3) {
-      setRounds((state) => state.filter((q) => q.uid !== id));
-    }
+  useEffect(() => {
+    console.log(rounds);
+  }, [rounds]);
+
+  async function removeQuestion(id: string) {
+    setRounds((state) => state.filter((q) => q.uid !== id));
   }
 
   function handleRoundChange(index: number, field: string, value: string) {

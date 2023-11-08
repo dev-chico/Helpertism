@@ -15,7 +15,10 @@ export function EndGameHard({ score, quiz }: IEndGame) {
       <section className={styles.points}>
         <h1 className={styles.title}>Fim de jogo! 😁💙</h1>
         <p className={styles.msgFinishGame}>
-          Sua pontuação final foi de: {score} {score === 1 ? "ponto" : "pontos"}
+          Sua pontuação final foi de:{" "}
+          <b>
+            {score} {score === 1 ? "ponto" : "pontos"}
+          </b>
         </p>
       </section>
 

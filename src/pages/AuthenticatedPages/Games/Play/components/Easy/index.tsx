@@ -119,7 +119,6 @@ export function PlayEasy() {
       toast({
         text: "Ops... Essa não é a resposta correta, tente novamente!",
         type: "danger",
-        duration: 50000,
         position: "top",
       });
       return;

@@ -513,6 +513,13 @@ export function CreateGame() {
             </div>
           </main>
         </section>
+
+        <p style={{ marginTop: 24 }}>
+          <b>OBS:</b> O jogo deve ter no mínimo 3 rodadas e no máximo 10. Você
+          só poderá salvar quando informar os campos obrigatórios (Título,
+          pergunta e opções de resposta de cada rodada). Imagens não são
+          obrigatórias.
+        </p>
       </form>
 
       <hr className={styles.divider} />

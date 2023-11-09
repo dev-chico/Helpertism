@@ -209,12 +209,25 @@ export function CreatePost() {
           placeholder="Título..."
         />
 
-        <textarea
-          className={styles.postContent}
-          placeholder="Era uma vez..."
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        ></textarea>
+        <div>
+          <textarea
+            className={styles.postContent}
+            placeholder="Era uma vez..."
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          ></textarea>
+
+          <p
+            style={{
+              marginTop: 8,
+              color: "var(--blue)",
+              fontWeight: 600,
+              fontSize: 14,
+            }}
+          >
+            O texto deve ter no mínimo 20 caracteres.
+          </p>
+        </div>
       </form>
 
       <FooterCreate
